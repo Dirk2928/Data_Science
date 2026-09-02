@@ -1,0 +1,198 @@
+Sqlalchemy
+pip install SQLAlchemy
+pip install pymysql
+
+
+
+Dbeaver connection
+
+## PART 1: Create a New MySQL Connection
+
+### Step 1: Open New Connection Wizard
+1. Click the **New Database Connection** icon in the toolbar (looks like a **plug 🔌** with a **+** sign)
+   
+   *Or alternatively:* Click **Database** → **New Database Connection** from the top menu
+
+### Step 2: Select Database Type
+1. In the wizard, select **MySQL** from the list
+2. Click **Next**
+
+### Step 3: Configure Connection Settings
+In the **Main** tab, fill in:
+
+| Field | What to Enter |
+|-------|---------------|
+| **Host** | `localhost` (or `127.0.0.1`) |
+| **Port** | `3306` (default MySQL port) |
+| **Database/Schema** | **LEAVE THIS BLANK** (important!) |
+| **Username** | `root` (or your MySQL username) |
+| **Password** | Your MySQL root password |
+
+### Step 4: Test and Save
+1. Click **Test Connection** → Should say **"Connected"** ✅
+2. Click **Finish** to save the connection
+
+---
+
+## PART 2: Create the Database
+
+### Step 5: Locate Your Connection
+1. In the **Database Navigator** (left panel), you'll see your new connection
+2. It will look like: **`localhost:3306`** (or whatever name you gave it)
+
+### Step 6: Create Database via Right-Click
+1. **Right-click** on your MySQL connection (`localhost:3306`)
+2. Select **Create** → **Database** from the context menu
+
+### Step 7: Fill in Database Details
+In the dialog box:
+
+| Field | What to Enter |
+|-------|---------------|
+| **Database Name** | `beijing_dataset` |
+| **Character Set** | `utf8mb4` (recommended) |
+| **Collation** | `utf8mb4_unicode_ci` |
+
+3. Click **OK**
+
+### Step 8: Refresh to See New Database
+1. Right-click on your connection
+2. Select **Refresh** (or press **F5**)
+3. Expand your connection → You should now see **`beijing_dataset`** listed under Databases
+
+---
+
+## PART 3: Connect to Your New Database
+
+### Step 9: Edit Connection to Use New Database
+1. **Right-click** on your MySQL connection
+2. Select **Edit Connection**
+
+### Step 10: Update Database/Schema
+1. In the **Main** tab, find **Database/Schema** field
+2. Type: `beijing_dataset`
+3. Click **Test Connection** → Should say **"Connected"** ✅
+4. Click **Finish**
+
+### Step 11: Confirm Connection
+1. In the Database Navigator, expand your connection
+2. You should see:
+   ```
+   ▼ localhost:3306
+      ▼ Databases
+         ▼ beijing_dataset  ← This is your new database!
+            ▼ Tables
+            ▼ Views
+            ▼ Procedures
+            ▼ Functions
+   ```
+
+---
+
+## Visual Reference
+
+### Toolbar Icons:
+```
+🔌+  = New Database Connection
+✏️    = SQL Editor
+⚡    = Execute SQL
+🔄    = Refresh
+```
+
+### Connection Flow:
+```
+1. New Connection → MySQL → localhost:3306 (no database)
+                    ↓
+2. Right-click → Create → Database → beijing_dataset
+                    ↓
+3. Edit Connection → Database/Schema: beijing_dataset
+                    ↓
+4. Ready to work! 🎉
+```
+
+---
+
+## Quick Method: Using SQL Editor
+
+If you prefer using SQL commands instead of the GUI:
+
+### Step 1: Open SQL Editor
+1. Click the **SQL Editor** icon (pencil ✏️) in the toolbar
+2. Make sure you're connected to `localhost:3306` (not a specific database)
+
+### Step 2: Create Database with SQL
+In the SQL editor, type:
+```sql
+CREATE DATABASE beijing_dataset
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+```
+
+### Step 3: Execute
+- Click the **Execute** button (lightning ⚡) or press **Ctrl+Enter**
+
+### Step 4: Refresh
+- Right-click your connection → **Refresh** (F5)
+- The new database will appear
+
+### Step 5: Switch to New Database
+- Right-click connection → **Edit Connection**
+- Set Database/Schema to `beijing_dataset`
+- Click **Finish**
+
+---
+
+## Troubleshooting Checklist
+
+| Problem | Solution |
+|---------|----------|
+| "Connection refused" | MySQL isn't running → Start MySQL service |
+| "Access denied" | Wrong username/password → Check credentials |
+| "Unknown database" | Database doesn't exist → Create it first |
+| Can't find connection | Check Database Navigator panel (Window → Show View → Database Navigator) |
+| Can't right-click | Make sure connection is selected/active |
+
+---
+
+## Starting MySQL Service (If Needed)
+
+### Check if MySQL is running:
+```cmd
+netstat -ano | findstr :3306
+```
+
+### Start MySQL (as Administrator):
+```cmd
+# Find exact service name first
+sc query | findstr /i "mysql"
+
+# Then start it
+net start MySQL80   # or MySQL57, MySQL, etc.
+```
+
+---
+
+## Summary: All Commands in One Place
+
+```sql
+-- 1. Create database
+CREATE DATABASE beijing_dataset;
+
+-- 2. Check it exists
+SHOW DATABASES;
+
+-- 3. Use the database
+USE beijing_dataset;
+
+-- 4. Verify you're using it
+SELECT DATABASE();
+```
+
+---
+
+**You should now have:**
+- ✅ A working MySQL connection in DBeaver
+- ✅ A new database called `beijing_dataset`
+- ✅ The ability to connect directly to your database
+
+**Let me know if any step fails or if you need clarification!** 🚀
