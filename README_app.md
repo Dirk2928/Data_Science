@@ -1,6 +1,6 @@
 # Next-day AQI prediction app
 
-The Streamlit page in `app.py` accepts today's six completed pollutant summaries. It calculates today's overall AQI and main pollutant from pollutant inputs only, then shows tomorrow's most likely AQI category, predicted numeric AQI, and predicted main pollutant when those models are present in the saved artifact. Class probabilities are used internally to select the category and are not displayed.
+The Streamlit page in `app.py` accept today's six completed pollutant summaries. It calculates today's overall AQI and main pollutant from pollutant inputs only, then shows tomorrow's most likely AQI category, predicted numeric AQI, and predicted main pollutant when those models are present in the saved artifact. Class probabilities are used internally to select the category and are not displayed.
 
 Inputs must use the training aggregation windows: 24-hour means for PM2.5, PM10, SO2, NO2, and CO; daily maximum trailing 8-hour average for O3. Units are µg/m³ except CO, which is mg/m³. Enter daily summaries, not single hourly readings.
 

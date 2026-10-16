@@ -1,4 +1,4 @@
-"""Simple Streamlit interface for the saved next-day AQI classifier."""
+"""Simple Streamlit interface for the saved next-day AQI classifier"""
 from __future__ import annotations
 import os
 from pathlib import Path
