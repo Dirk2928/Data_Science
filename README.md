@@ -2,7 +2,7 @@
 
 This project explores hourly air-quality measurements from monitoring stations in
 Beijing and includes a Streamlit app that predicts the next day's air-quality
-category from completed daily pollutant summaries.
+category from completed daily pollutant and meteorological summaries.
 
 The analysis covers pollutant and weather patterns, station-level differences,
 and statistical summaries. The modeling workflow calculates daily AQI labels,
@@ -22,7 +22,11 @@ the app.
 | [`Notebooks/stats_analysis_beijing_air_quality.ipynb`](Notebooks/stats_analysis_beijing_air_quality.ipynb) | Descriptive statistics and station-level statistical analyses |
 | [`Notebooks/sets.ipynb`](Notebooks/sets.ipynb) | Calculates daily China AQI labels and data splits |
 | [`Notebooks/model_development.ipynb`](Notebooks/model_development.ipynb), [`Notebooks/model_development_revised.ipynb`](Notebooks/model_development_revised.ipynb) | Earlier/alternative model experiments |
-| [`model_development_final.ipynb`](model_development_final.ipynb) | Final next-day model training, evaluation, and artifact export |
+| [`model_development_final.ipynb`](model_development_final.ipynb) | Pollutant-only baseline training, evaluation, and artifact export |
+| [`weather_model_comparison.md`](weather_model_comparison.md) | Weather feature ablation, held-out evaluation, and stability findings |
+| [`weather_feature_walkthrough.ipynb`](weather_feature_walkthrough.ipynb) | Interactive weather feature construction, model comparison, and evaluation |
+| [`weather_model_tuning.py`](weather_model_tuning.py), [`weather_model_evaluation.py`](weather_model_evaluation.py), [`weather_model_stability.py`](weather_model_stability.py) | Reproducible tuning, holdout evaluation, and stability analysis |
+| [`train_weather_model_release.py`](train_weather_model_release.py) | Trains and exports the weather-enabled app artifact |
 | [`app.py`](app.py) | Streamlit multipage entry point and navigation |
 | [`pages/prediction.py`](pages/prediction.py) | AQI prediction interface |
 | [`pages/1_Model_Dataset.py`](pages/1_Model_Dataset.py) | Paginated view of the model's daily training/evaluation examples |
@@ -40,33 +44,26 @@ python -m streamlit run app.py
 
 Open the local URL printed by Streamlit, usually <http://localhost:8501>.
 
-The app loads `aqi_next_day_random_forest.joblib` from the repository root by
-default. That generated model artifact is not included in the repository. To
-create it, complete the database and model-training steps below. You can also
-point the app to an artifact elsewhere by setting the `AQI_MODEL_PATH`
-environment variable before launching it.
+The app loads `aqi_next_day_weather_random_forest.joblib` from the repository root
+by default. The generated model artifact is not included in the repository. To
+create it, run the weather model tuning and release steps below. You can point
+the app to a compatible artifact with `AQI_MODEL_PATH`.
 
 ## Prepare data and train the model
 
-The final training notebook reads the `all_regions` table from MySQL. If you
-need to recreate that table:
+The app's weather-enabled model uses the bundled cleaned hourly dataset and does
+not require MySQL. From the repository root, run:
 
-1. Install and start MySQL, then configure the database connection used by the
-   notebooks. See [`Installations`](Installations) for DBeaver setup notes. Do not
-   commit database passwords or other credentials.
-2. Run `Notebooks/DB_Connection.ipynb` to load the station CSV files into
-   MySQL.
-3. Run `Notebooks/temp_table.ipynb` to combine and prepare the station data
-   into `all_regions`.
-4. Run `model_development_final.ipynb` from top to bottom. It loads
-   `all_regions`, builds daily labels, trains and evaluates the model, and
-   exports the model artifact and `aqi_model_dataset.csv` used by the dataset
-   browser.
-5. Launch the app using the commands above.
+```bash
+python weather_model_tuning.py
+python train_weather_model_release.py
+```
 
-The final notebook uses `AIR_QUALITY_DB_URL` when set; otherwise it uses its
-configured local MySQL connection. Update that configuration to match your
-database before running the notebook.
+The tuning script writes `weather_model_tuning_results.csv`. The release script
+uses those selected parameters to train the category, numeric AQI, and main
+pollutant models, then writes the ignored model artifact and
+`aqi_weather_model_dataset.csv` used by the dataset browser. The older
+`model_development_final.ipynb` remains the pollutant-only baseline workflow.
 
 The dataset page displays 50 rows per page. To use a different CSV, set
 `AQI_DATASET_PATH` before starting Streamlit.
@@ -77,7 +74,12 @@ Enter completed daily summaries, not individual hourly sensor readings:
 
 - PM2.5, PM10, SO2, NO2, and CO: 24-hour means.
 - O3: daily maximum trailing 8-hour average.
-- Units: µg/m³ except CO, which is mg/m³.
+- Weather: same-day mean temperature, daily temperature range, mean pressure,
+  mean dew point, total rainfall, mean wind speed, and mean sine/cosine of hourly
+  wind directions. These fields can be left blank; the model fills them with
+  training-set medians.
+- Units: pollutant concentrations are µg/m³ except CO (mg/m³); weather uses °C,
+  hPa, mm, m/s, and unitless wind-direction components.
 
 The app calculates today's AQI from the supplied pollutant values and predicts
 the next calendar day's AQI category. Numeric AQI and main-pollutant predictions
@@ -87,8 +89,9 @@ are shown when those models are present in the saved artifact. See
 ## Data and model limitations
 
 The supplied observations cover Beijing monitoring stations from 2013 to 2017.
-Predictions trained on this historical dataset may not generalize to current
-conditions, other locations, or different sensors. Model results are
+Weather inputs are observed values for a completed day, not tomorrow's weather
+forecast. Predictions trained on this historical dataset may not generalize to
+current conditions, other locations, or different sensors. Model results are
 experimental and should not be used as health or operational guidance.
 
 ## Further analysis

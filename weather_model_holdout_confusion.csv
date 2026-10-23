@@ -1,0 +1,73 @@
+feature_set,actual,predicted,count
+pollutant_only,Excellent,Excellent,208
+pollutant_only,Excellent,Good,175
+pollutant_only,Excellent,Lightly polluted,66
+pollutant_only,Excellent,Moderately polluted,13
+pollutant_only,Excellent,Heavily polluted,20
+pollutant_only,Excellent,Severely polluted,11
+pollutant_only,Good,Excellent,207
+pollutant_only,Good,Good,383
+pollutant_only,Good,Lightly polluted,256
+pollutant_only,Good,Moderately polluted,113
+pollutant_only,Good,Heavily polluted,60
+pollutant_only,Good,Severely polluted,34
+pollutant_only,Lightly polluted,Excellent,98
+pollutant_only,Lightly polluted,Good,284
+pollutant_only,Lightly polluted,Lightly polluted,329
+pollutant_only,Lightly polluted,Moderately polluted,193
+pollutant_only,Lightly polluted,Heavily polluted,80
+pollutant_only,Lightly polluted,Severely polluted,52
+pollutant_only,Moderately polluted,Excellent,12
+pollutant_only,Moderately polluted,Good,66
+pollutant_only,Moderately polluted,Lightly polluted,121
+pollutant_only,Moderately polluted,Moderately polluted,176
+pollutant_only,Moderately polluted,Heavily polluted,59
+pollutant_only,Moderately polluted,Severely polluted,15
+pollutant_only,Heavily polluted,Excellent,19
+pollutant_only,Heavily polluted,Good,22
+pollutant_only,Heavily polluted,Lightly polluted,40
+pollutant_only,Heavily polluted,Moderately polluted,46
+pollutant_only,Heavily polluted,Heavily polluted,101
+pollutant_only,Heavily polluted,Severely polluted,106
+pollutant_only,Severely polluted,Excellent,9
+pollutant_only,Severely polluted,Good,3
+pollutant_only,Severely polluted,Lightly polluted,4
+pollutant_only,Severely polluted,Moderately polluted,0
+pollutant_only,Severely polluted,Heavily polluted,16
+pollutant_only,Severely polluted,Severely polluted,85
+pollutant_plus_weather,Excellent,Excellent,224
+pollutant_plus_weather,Excellent,Good,157
+pollutant_plus_weather,Excellent,Lightly polluted,79
+pollutant_plus_weather,Excellent,Moderately polluted,15
+pollutant_plus_weather,Excellent,Heavily polluted,8
+pollutant_plus_weather,Excellent,Severely polluted,10
+pollutant_plus_weather,Good,Excellent,215
+pollutant_plus_weather,Good,Good,355
+pollutant_plus_weather,Good,Lightly polluted,302
+pollutant_plus_weather,Good,Moderately polluted,82
+pollutant_plus_weather,Good,Heavily polluted,70
+pollutant_plus_weather,Good,Severely polluted,29
+pollutant_plus_weather,Lightly polluted,Excellent,76
+pollutant_plus_weather,Lightly polluted,Good,224
+pollutant_plus_weather,Lightly polluted,Lightly polluted,407
+pollutant_plus_weather,Lightly polluted,Moderately polluted,196
+pollutant_plus_weather,Lightly polluted,Heavily polluted,103
+pollutant_plus_weather,Lightly polluted,Severely polluted,30
+pollutant_plus_weather,Moderately polluted,Excellent,7
+pollutant_plus_weather,Moderately polluted,Good,48
+pollutant_plus_weather,Moderately polluted,Lightly polluted,137
+pollutant_plus_weather,Moderately polluted,Moderately polluted,176
+pollutant_plus_weather,Moderately polluted,Heavily polluted,63
+pollutant_plus_weather,Moderately polluted,Severely polluted,18
+pollutant_plus_weather,Heavily polluted,Excellent,3
+pollutant_plus_weather,Heavily polluted,Good,10
+pollutant_plus_weather,Heavily polluted,Lightly polluted,67
+pollutant_plus_weather,Heavily polluted,Moderately polluted,31
+pollutant_plus_weather,Heavily polluted,Heavily polluted,121
+pollutant_plus_weather,Heavily polluted,Severely polluted,102
+pollutant_plus_weather,Severely polluted,Excellent,6
+pollutant_plus_weather,Severely polluted,Good,2
+pollutant_plus_weather,Severely polluted,Lightly polluted,10
+pollutant_plus_weather,Severely polluted,Moderately polluted,0
+pollutant_plus_weather,Severely polluted,Heavily polluted,20
+pollutant_plus_weather,Severely polluted,Severely polluted,79

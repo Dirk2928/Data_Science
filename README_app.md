@@ -1,8 +1,10 @@
 # Next-day AQI prediction app
 
-The prediction page accepts today's six completed pollutant summaries. It calculates today's overall AQI and main pollutant from pollutant inputs only, then shows tomorrow's most likely AQI category, predicted numeric AQI, and predicted main pollutant when those models are present in the saved artifact. Class probabilities are used internally to select the category and are not displayed. `app.py` explicitly registers the prediction and dataset pages with Streamlit navigation.
+The prediction page accepts today's six completed pollutant summaries and eight same-day weather summaries. It calculates today's AQI using pollutant readings, then predicts tomorrow's AQI category, numeric AQI, and main pollutant. The weather fields are optional; blank values are median-imputed from training data.
 
-Inputs must use the training aggregation windows: 24-hour means for PM2.5, PM10, SO2, NO2, and CO; daily maximum trailing 8-hour average for O3. Units are µg/m³ except CO, which is mg/m³. Enter daily summaries, not single hourly readings.
+Pollutant inputs use 24-hour means for PM2.5, PM10, SO2, NO2, and CO, plus the daily maximum trailing 8-hour average for O3. Concentration units are µg/m³ except CO (mg/m³). Weather summaries are mean/range temperature, mean pressure, mean dew point, total rain, mean wind speed, and the mean sine and cosine of hourly wind directions. Weather units are °C, hPa, mm, m/s, and unitless direction components.
+
+Weather inputs describe an already completed day. The app does not fetch forecasts or use tomorrow's observed weather. For the wind-direction inputs, convert each hourly compass direction to degrees clockwise from north, calculate sine and cosine, then average each separately.
 
 ## Run locally
 
@@ -13,6 +15,6 @@ python -m pip install -r requirements-app.txt
 python -m streamlit run app.py
 ```
 
-By default, the app loads `aqi_next_day_random_forest.joblib` from the project root. To use another artifact, set `AQI_MODEL_PATH` before starting Streamlit. Run the training and export cells in `model_development_final.ipynb` to create the artifact.
+The app loads `aqi_next_day_weather_random_forest.joblib` by default. To build it, run `python weather_model_tuning.py` and then `python train_weather_model_release.py`. To use another compatible artifact, set `AQI_MODEL_PATH` before starting Streamlit.
 
-The app navigation includes a dataset page that displays 50 model examples per page. The final notebook's export section also writes `aqi_model_dataset.csv` beside the model artifact. If the dataset file is missing, rerun the notebook through that section. Set `AQI_DATASET_PATH` before launching Streamlit to use a dataset file at another location.
+The dataset page shows 50 rows per page from `aqi_weather_model_dataset.csv`, which the release script creates. Set `AQI_DATASET_PATH` before starting the app to use a different CSV.

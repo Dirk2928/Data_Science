@@ -8,7 +8,7 @@ import pandas as pd
 import streamlit as st
 
 APP_DIR = Path(__file__).resolve().parents[1]
-DATASET_PATH = Path(os.environ.get("AQI_DATASET_PATH", APP_DIR / "aqi_model_dataset.csv"))
+DATASET_PATH = Path(os.environ.get("AQI_DATASET_PATH", APP_DIR / "aqi_weather_model_dataset.csv"))
 PAGE_SIZE = 50
 
 
@@ -55,20 +55,20 @@ with st.container(border=True, key="top-navigation"):
 st.title("Dataset used by the prediction model")
 st.write(
     "Browse the daily station-level examples used to train and evaluate the "
-    "next-day AQI models. Each row contains one day's pollutant summaries and "
-    "the target AQI information for the following day."
+    "next-day AQI models. Each row contains one day's pollutant and weather "
+    "summaries and the target AQI information for the following day."
 )
 st.caption(
-    "Features: 24-hour means for PM2.5, PM10, SO2, NO2, and CO; daily maximum "
-    "trailing 8-hour mean for O3. CO is in mg/m³; other pollutant values are in µg/m³."
+    "Features: six daily pollutant summaries plus same-day temperature, pressure, "
+    "dew point, rain, wind speed, and circular wind-direction summaries. CO is "
+    "in mg/m³; other pollutant values are in µg/m³."
 )
 
 if not DATASET_PATH.is_file():
     st.error(f"Model dataset file not found: {DATASET_PATH}")
     st.info(
-        "Run all cells in model_development_final.ipynb through the model export "
-        "section. That notebook writes aqi_model_dataset.csv beside the model "
-        "artifact. To load a dataset saved elsewhere, set AQI_DATASET_PATH before "
+        "Run train_weather_model_release.py from the repository root. It writes "
+        "aqi_weather_model_dataset.csv beside the model artifact. To load a dataset saved elsewhere, set AQI_DATASET_PATH before "
         "starting Streamlit."
     )
     st.stop()
