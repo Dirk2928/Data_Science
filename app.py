@@ -10,4 +10,4 @@ dataset_page = st.Page(
     title="Model dataset",
 )
 
-st.navigation([prediction_page, dataset_page], position="hidden").run()
+st.navigation([prediction_page, dataset_page], position="sidebar").run()
