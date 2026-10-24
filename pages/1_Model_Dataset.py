@@ -27,30 +27,8 @@ def _go_to_next_page() -> None:
 
 
 st.set_page_config(page_title="Model dataset", page_icon="📊", layout="wide")
-st.markdown(
-    """
-    <style>
-    section[data-testid="stSidebar"],
-    button[data-testid="collapsedControl"] {
-        display: none;
-    }
-    div.st-key-top-navigation div[data-testid="stHorizontalBlock"] > div:nth-child(n+2) {
-        display: flex;
-        justify-content: flex-end;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-with st.container(border=True, key="top-navigation"):
-    brand, prediction_link, data_link = st.columns([4, 1, 1])
-    with brand:
-        st.markdown("**Beijing Air Quality · Model Dataset**")
-    with prediction_link:
-        st.page_link("pages/prediction.py", label="Prediction")
-    with data_link:
-        st.page_link("pages/1_Model_Dataset.py", label="Data")
+st.sidebar.title("Beijing Air Quality")
+st.sidebar.caption("Model Dataset")
 
 st.title("Dataset used by the prediction model")
 st.write(

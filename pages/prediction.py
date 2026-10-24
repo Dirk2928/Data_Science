@@ -77,29 +77,8 @@ def calculate_today_aqi(values:dict[str,float],o3_1h_max:float|None)->tuple[int,
     return overall,[p for p,v in indices.items() if v==overall],indices
 
 st.set_page_config(page_title="Next-day AQI prediction",page_icon="🌤️",layout="centered")
-st.markdown(
-    """
-    <style>
-    section[data-testid="stSidebar"],
-    button[data-testid="collapsedControl"] {
-        display: none;
-    }
-    div.st-key-top-navigation div[data-testid="stHorizontalBlock"] > div:nth-child(n+2) {
-        display: flex;
-        justify-content: flex-end;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-with st.container(border=True, key="top-navigation"):
-    brand, prediction_link, data_link = st.columns([4, 1, 1])
-    with brand:
-        st.markdown("**Beijing Air Quality · AQI Predictor**")
-    with prediction_link:
-        st.page_link("pages/prediction.py", label="Prediction")
-    with data_link:
-        st.page_link("pages/1_Model_Dataset.py", label="Data")
+st.sidebar.title("Beijing Air Quality")
+st.sidebar.caption("AQI Predictor")
 st.title("Next-day AQI category")
 st.write("Enter today's completed pollutant and weather summaries to estimate the next calendar day's AQI. Use daily summaries, not instantaneous sensor readings.")
 if not MODEL_PATH.exists():
