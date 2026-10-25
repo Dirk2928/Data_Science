@@ -8,3 +8,7 @@ CNEMC_Figshare_2014-2025/data/*
 !CNEMC_Figshare_2014-2025/data/beijing_project_stations_daily_with_weather.csv
 aqi_next_day_random_forest.joblib
 aqi_next_day_weather_random_forest.joblib
+
+# Python bytecode and cache directories
+__pycache__/
+*.py[cod]
