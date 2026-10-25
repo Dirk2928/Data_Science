@@ -15,8 +15,11 @@ Set `DB_URL` to your SQLAlchemy/PyMySQL connection URL; credentials are read onl
 
 ## Train and run
 
+Open `three_class_aqi.ipynb` in Jupyter from the repository root and run its cells in order. The notebook reads MySQL, constructs labels and features using the shared project modules, tunes and evaluates the models, writes the results CSV files, and saves `3class_model.joblib`. It contains Markdown explanations alongside each workflow stage.
+
+Then launch the Streamlit app from the repository root:
+
 ```powershell
-python "3 class/train.py"
 python -m streamlit run "3 class/app.py"
 ```
 
@@ -24,7 +27,7 @@ Set `CLASS3_MODEL_PATH` to load a model artifact from another location. Training
 
 ## Folder layout
 
-- `train.py` — database loading, shared label/feature construction, chronological model training and evaluation.
+- `three_class_aqi.ipynb` — explained, end-to-end database loading, labeling, feature construction, training, evaluation, and artifact generation.
 - `3class_model.joblib` — selected fitted model and metadata.
 - `results.csv`, `per_class.csv`, `per_station.csv`, `confusion_matrix.csv` — held-out evaluation outputs.
 - `app.py`, `pages/` — prediction, results, and live database sample pages.
