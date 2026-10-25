@@ -15,12 +15,12 @@ the app.
 | --- | --- |
 | [`data/`](data/) | Beijing hourly air-quality CSVs, including station data and combined datasets |
 | [`notebooks/DB_Connection.ipynb`](notebooks/DB_Connection.ipynb) | Connects to MySQL, previews a station dataset, and loads station CSVs into tables |
-| [`notebooks/temp_table.ipynb`](notebooks/temp_table.ipynb) | Combines and prepares station data in the `all_regions` MySQL table |
+| [`notebooks/etl.ipynb`](notebooks/etl.ipynb) | Combines and prepares station data in the `all_regions` MySQL table |
 | [`notebooks/clean_readings.ipynb`](notebooks/clean_readings.ipynb) | Validates and cleans the provided `cleaned_dataset.csv` into `cleaned_dataset_validated.csv` |
 | [`app/aqi_labels.py`](app/aqi_labels.py) | Shared AQI labeling and dataset-splitting logic for modeling notebooks |
 | [`notebooks/eda_beijing_air_quality.ipynb`](notebooks/eda_beijing_air_quality.ipynb) | Exploratory data analysis and visualizations |
 | [`notebooks/stats_analysis_beijing_air_quality.ipynb`](notebooks/stats_analysis_beijing_air_quality.ipynb) | Descriptive statistics and station-level statistical analyses |
-| [`notebooks/sets.ipynb`](notebooks/sets.ipynb) | Calculates daily China AQI labels and data splits |
+| [`notebooks/aqi_labeling_and_splits.ipynb`](notebooks/aqi_labeling_and_splits.ipynb) | Calculates daily China AQI labels and data splits |
 | [`notebooks/model_development.ipynb`](notebooks/model_development.ipynb), [`notebooks/model_development_revised.ipynb`](notebooks/model_development_revised.ipynb) | Earlier/alternative model experiments |
 | [`notebooks/model_development_final.ipynb`](notebooks/model_development_final.ipynb) | Pollutant-only baseline training, evaluation, and artifact export |
 | [`weather_model_comparison.md`](weather_model_comparison.md) | Weather feature ablation, held-out evaluation, and stability findings |
