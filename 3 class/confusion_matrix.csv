@@ -1,0 +1,28 @@
+model,actual_class,actual_label,predicted_class,predicted_label,count
+XGBoost,0,Clean,0,Clean,975
+XGBoost,0,Clean,1,Light-to-moderate,501
+XGBoost,0,Clean,2,Heavy,70
+XGBoost,1,Light-to-moderate,0,Clean,350
+XGBoost,1,Light-to-moderate,1,Light-to-moderate,1039
+XGBoost,1,Light-to-moderate,2,Heavy,96
+XGBoost,2,Heavy,0,Clean,9
+XGBoost,2,Heavy,1,Light-to-moderate,176
+XGBoost,2,Heavy,2,Heavy,266
+Persistence,0,Clean,0,Clean,734
+Persistence,0,Clean,1,Light-to-moderate,598
+Persistence,0,Clean,2,Heavy,214
+Persistence,1,Light-to-moderate,0,Clean,643
+Persistence,1,Light-to-moderate,1,Light-to-moderate,707
+Persistence,1,Light-to-moderate,2,Heavy,135
+Persistence,2,Heavy,0,Clean,140
+Persistence,2,Heavy,1,Light-to-moderate,177
+Persistence,2,Heavy,2,Heavy,134
+Majority class,0,Clean,0,Clean,0
+Majority class,0,Clean,1,Light-to-moderate,1546
+Majority class,0,Clean,2,Heavy,0
+Majority class,1,Light-to-moderate,0,Clean,0
+Majority class,1,Light-to-moderate,1,Light-to-moderate,1485
+Majority class,1,Light-to-moderate,2,Heavy,0
+Majority class,2,Heavy,0,Clean,0
+Majority class,2,Heavy,1,Light-to-moderate,451
+Majority class,2,Heavy,2,Heavy,0
