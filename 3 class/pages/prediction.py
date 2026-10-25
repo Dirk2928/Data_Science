@@ -7,7 +7,7 @@ import streamlit as st
 HERE=Path(__file__).resolve().parents[1]
 MODEL=Path(os.environ.get("CLASS3_MODEL_PATH",HERE/"3class_model.joblib"))
 FEATURES=["PM2.5","PM10","SO2","NO2","CO","O3","TEMP_mean","TEMP_range","PRES_mean","DEWP_mean","RAIN_sum","WSPM_mean","wd_sin","wd_cos"]
-LABELS={0:"Clean",1:"Light-to-moderate",2:"Heavy"}
+LABELS={0:"Clean",1:"Light-to-moderate polluted",2:"Heavily polluted"}
 RANGES={0:"AQI 0–100",1:"AQI 101–200",2:"AQI 201+"}
 UNITS={"PM2.5":"µg/m³","PM10":"µg/m³","SO2":"µg/m³","NO2":"µg/m³","CO":"mg/m³","O3":"µg/m³","TEMP_mean":"°C","TEMP_range":"°C","PRES_mean":"hPa","DEWP_mean":"°C","RAIN_sum":"mm","WSPM_mean":"m/s","wd_sin":"unitless (-1 to 1)","wd_cos":"unitless (-1 to 1)"}
 st.set_page_config(page_title="Next-day 3-class AQI",page_icon="🌤️")

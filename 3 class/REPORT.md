@@ -2,7 +2,7 @@
 
 ## Classes
 
-Targets use the repository's HJ 633 AQI labels, collapsed into three operational groups: class 0 Clean is AQI 0–100 (Excellent and Good); class 1 Light-to-moderate is AQI 101–200; class 2 Heavy is AQI above 200. The shared labeler requires 20 valid hourly readings for the daily means of PM2.5, PM10, SO2, NO2 and CO, handles O3 using its trailing eight-hour rule and existing fallback, and computes AQI from pollutant sub-indices. No labeling rules are duplicated here.
+Targets use the repository's HJ 633 AQI labels, collapsed into three operational groups: class 0 Clean is AQI 0–100 (Excellent and Good); class 1 Light-to-moderate polluted is AQI 101–200; class 2 Heavily polluted is AQI above 200. The shared labeler requires 20 valid hourly readings for the daily means of PM2.5, PM10, SO2, NO2 and CO, handles O3 using its trailing eight-hour rule and existing fallback, and computes AQI from pollutant sub-indices. No labeling rules are duplicated here.
 
 ## Data source and features
 
