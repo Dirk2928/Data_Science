@@ -1,35 +1,75 @@
-# 3-class next-day AQI model
+# Three-class next-day AQI model
 
-This folder builds a three-class next-day Beijing AQI classifier directly from MySQL. It uses the repository's `Notebooks/aqi_labels.py` HJ 633 label rules and `weather_model_comparison.py` daily feature builder.
+This folder contains an explanatory Jupyter notebook that trains a next-day Beijing AQI classifier from MySQL, plus a Streamlit app to use the saved model. It reuses the shared labeling and feature-building modules in `air-quality-classification/app/`; it does not read CSV data.
 
-## Install and configure
+## First-time setup (Windows PowerShell)
 
-From the project root:
+Run these commands from the repository root, `C:\Users\PLP\Documents\Data_Science`:
 
 ```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 python -m pip install -r "3 class/requirements.txt"
+python -m pip install jupyter ipykernel
+python -m ipykernel install --user --name data-science --display-name "Python (Data Science)"
+jupyter notebook
+```
+
+If `.venv` already exists, skip `python -m venv .venv`. If PowerShell reports that script execution is disabled when activating, use this for the current terminal only, then activate again:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\.venv\Scripts\Activate.ps1
+```
+
+In Jupyter, open `3 class/three_class_aqi.ipynb`. If prompted to select an interpreter, choose the `.venv` Python at `.venv\Scripts\python.exe`, or the registered **Python (Data Science)** kernel. Run cells from the top using **Shift+Enter**. The first setup cell prints the project root and the exact shared AQI labeler path; check that it points inside `air-quality-classification\app`.
+
+## Prepare the database
+
+Set `DB_URL` in the same PowerShell window before launching Jupyter:
+
+```powershell
 $env:DB_URL = "mysql+pymysql://root:@localhost/air_quality"
 ```
 
-Set `DB_URL` to your SQLAlchemy/PyMySQL connection URL; credentials are read only from the environment. The default is `mysql+pymysql://root:@localhost/air_quality`. Ensure MySQL contains `all_regions` or all 12 station tables. If unavailable, run `Notebooks/DB_Connection.ipynb` and `Notebooks/temp_table.ipynb` first. This workflow does not use CSVs.
+The notebook reads `all_regions` when available, otherwise it combines the 12 station tables. If the database tables have not been prepared yet, run `air-quality-classification/notebooks/DB_Connection.ipynb` and then `air-quality-classification/notebooks/temp_table.ipynb`. Those preparation notebooks rely on the original PRSA files; the three-class training notebook itself reads only MySQL. If MySQL is unreachable or empty, the model notebook stops with a setup message and does not fall back to CSV.
 
-## Train and run
+## Learn the notebook flow
 
-Open `three_class_aqi.ipynb` in Jupyter from the repository root and run its cells in order. The notebook reads MySQL, constructs labels and features using the shared project modules, tunes and evaluates the models, writes the results CSV files, and saves `3class_model.joblib`. It contains Markdown explanations alongside each workflow stage.
+Run the sections in order:
 
-Then launch the Streamlit app from the repository root:
+1. **Imports and project paths:** loads dependencies and finds the shared project modules.
+2. **Database and labels:** reads hourly rows from MySQL, normalizes `interpolated_columns`, applies the repository HJ 633 rules, and builds tomorrow’s AQI target.
+3. **Chronological split:** reserves the last 20% of unique dates for a final test.
+4. **Model tuning:** tunes Random Forest, XGBoost, and logistic regression on training dates only; preprocessing stays inside each model pipeline.
+5. **Baselines and evaluation:** compares the models and probability ensemble with persistence and majority-class baselines. It reports date-bootstrap accuracy intervals, macro-F1, class precision/recall, confusion matrices, station accuracy, and within-one-class accuracy.
+6. **Saved outputs:** writes `results.csv`, `per_class.csv`, `per_station.csv`, `confusion_matrix.csv`, and `3class_model.joblib` into this folder.
+
+Class 0 is AQI 0–100, class 1 is 101–200, and class 2 is above 200. Read `results.csv` after the final cell completes; do not treat expected reference values in the report as measured results.
+
+## Run the app
+
+After the notebook finishes successfully, stop Jupyter or open another PowerShell window, activate `.venv`, and run from the repository root:
 
 ```powershell
+.\.venv\Scripts\Activate.ps1
 python -m streamlit run "3 class/app.py"
 ```
 
-Set `CLASS3_MODEL_PATH` to load a model artifact from another location. Training writes the model and evaluation tables beside this README.
+The app defaults to `3 class/3class_model.joblib`. Set `CLASS3_MODEL_PATH` if the model is stored elsewhere. The database page uses `DB_URL` and shows a readable message if MySQL is unavailable.
 
-## Folder layout
+## Common fixes
 
-- `three_class_aqi.ipynb` — explained, end-to-end database loading, labeling, feature construction, training, evaluation, and artifact generation.
-- `3class_model.joblib` — selected fitted model and metadata.
-- `results.csv`, `per_class.csv`, `per_station.csv`, `confusion_matrix.csv` — held-out evaluation outputs.
-- `app.py`, `pages/` — prediction, results, and live database sample pages.
-- `REPORT.md` — explanation and conclusions.
-- `requirements.txt` — Python dependencies.
+- **`No module named 'aqi_labels'`:** make sure Jupyter opened the `Data_Science` repository root and the first setup cell was run. The expected file is `air-quality-classification/app/aqi_labels.py`.
+- **Module imports work in PowerShell but fail in the notebook:** switch the notebook kernel to the `.venv` interpreter / **Python (Data Science)** kernel, then restart the kernel and run from the first cell.
+- **`No module named sqlalchemy` or `xgboost`:** activate `.venv` and rerun `python -m pip install -r "3 class/requirements.txt"` in that same terminal; then restart the notebook kernel.
+- **MySQL connection error:** verify the MySQL service, `DB_URL`, and the `air_quality` tables. Run the two database preparation notebooks if needed.
+- **Do not type Python statements at `PS ...>`:** that is the PowerShell prompt. Python code goes into a notebook code cell; run it with **Shift+Enter**.
+
+## Folder contents
+
+- `three_class_aqi.ipynb` — annotated training and evaluation notebook.
+- `app.py`, `pages/` — Streamlit prediction, result, and database pages.
+- `requirements.txt` — model and app dependencies.
+- `REPORT.md` — plain-language method and interpretation guide.
+- The notebook creates the model artifact and result CSVs after successful training.

@@ -32,7 +32,7 @@ try:
     st.write(f"Source: {source if isinstance(source,str) else 'station tables'} · 50 rows per page")
     st.dataframe(frame,use_container_width=True)
 except Exception as e:
-    st.error("Unable to read MySQL air_quality. Run Notebooks/DB_Connection.ipynb and Notebooks/temp_table.ipynb first, then check DB_URL.")
+    st.error("Unable to read MySQL air_quality. Run air-quality-classification/notebooks/DB_Connection.ipynb and temp_table.ipynb first, then check DB_URL.")
     st.caption(str(e))
 finally:
     if engine is not None: engine.dispose()

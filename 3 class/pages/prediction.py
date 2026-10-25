@@ -13,7 +13,7 @@ UNITS={"PM2.5":"µg/m³","PM10":"µg/m³","SO2":"µg/m³","NO2":"µg/m³","CO":"
 st.set_page_config(page_title="Next-day 3-class AQI",page_icon="🌤️")
 st.title("Next-day 3-class prediction")
 st.write("Enter today's completed station-day summaries. Weather fields are optional and median-imputed when blank.")
-if not MODEL.exists(): st.error(f"Model not found: {MODEL}. Run train.py first."); st.stop()
+if not MODEL.exists(): st.error(f"Model not found: {MODEL}. Run all cells in three_class_aqi.ipynb first."); st.stop()
 try: artifact=joblib.load(MODEL); model=artifact["model"]
 except Exception as e: st.error(f"Could not load model: {e}"); st.stop()
 if list(artifact.get("feature_order",FEATURES))!=FEATURES: st.error("Model feature order does not match prediction inputs."); st.stop()
