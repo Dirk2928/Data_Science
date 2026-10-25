@@ -1,28 +1,28 @@
 model,actual_class,actual_label,predicted_class,predicted_label,count
-XGBoost,0,Clean,0,Clean,975
-XGBoost,0,Clean,1,Light-to-moderate,501
-XGBoost,0,Clean,2,Heavy,70
-XGBoost,1,Light-to-moderate,0,Clean,350
-XGBoost,1,Light-to-moderate,1,Light-to-moderate,1039
-XGBoost,1,Light-to-moderate,2,Heavy,96
-XGBoost,2,Heavy,0,Clean,9
-XGBoost,2,Heavy,1,Light-to-moderate,176
-XGBoost,2,Heavy,2,Heavy,266
-Persistence,0,Clean,0,Clean,734
-Persistence,0,Clean,1,Light-to-moderate,598
-Persistence,0,Clean,2,Heavy,214
-Persistence,1,Light-to-moderate,0,Clean,643
-Persistence,1,Light-to-moderate,1,Light-to-moderate,707
-Persistence,1,Light-to-moderate,2,Heavy,135
-Persistence,2,Heavy,0,Clean,140
-Persistence,2,Heavy,1,Light-to-moderate,177
-Persistence,2,Heavy,2,Heavy,134
-Majority class,0,Clean,0,Clean,0
-Majority class,0,Clean,1,Light-to-moderate,1546
-Majority class,0,Clean,2,Heavy,0
-Majority class,1,Light-to-moderate,0,Clean,0
-Majority class,1,Light-to-moderate,1,Light-to-moderate,1485
-Majority class,1,Light-to-moderate,2,Heavy,0
-Majority class,2,Heavy,0,Clean,0
-Majority class,2,Heavy,1,Light-to-moderate,451
-Majority class,2,Heavy,2,Heavy,0
+XGBoost,0,Clean,0,Clean,6198
+XGBoost,0,Clean,1,Light-to-moderate polluted,903
+XGBoost,0,Clean,2,Heavily polluted,3
+XGBoost,1,Light-to-moderate polluted,0,Clean,1116
+XGBoost,1,Light-to-moderate polluted,1,Light-to-moderate polluted,1607
+XGBoost,1,Light-to-moderate polluted,2,Heavily polluted,32
+XGBoost,2,Heavily polluted,0,Clean,41
+XGBoost,2,Heavily polluted,1,Light-to-moderate polluted,91
+XGBoost,2,Heavily polluted,2,Heavily polluted,9
+Persistence,0,Clean,0,Clean,5248
+Persistence,0,Clean,1,Light-to-moderate polluted,1642
+Persistence,0,Clean,2,Heavily polluted,214
+Persistence,1,Light-to-moderate polluted,0,Clean,1679
+Persistence,1,Light-to-moderate polluted,1,Light-to-moderate polluted,998
+Persistence,1,Light-to-moderate polluted,2,Heavily polluted,78
+Persistence,2,Heavily polluted,0,Clean,51
+Persistence,2,Heavily polluted,1,Light-to-moderate polluted,67
+Persistence,2,Heavily polluted,2,Heavily polluted,23
+Majority class,0,Clean,0,Clean,7104
+Majority class,0,Clean,1,Light-to-moderate polluted,0
+Majority class,0,Clean,2,Heavily polluted,0
+Majority class,1,Light-to-moderate polluted,0,Clean,2755
+Majority class,1,Light-to-moderate polluted,1,Light-to-moderate polluted,0
+Majority class,1,Light-to-moderate polluted,2,Heavily polluted,0
+Majority class,2,Heavily polluted,0,Clean,141
+Majority class,2,Heavily polluted,1,Light-to-moderate polluted,0
+Majority class,2,Heavily polluted,2,Heavily polluted,0
