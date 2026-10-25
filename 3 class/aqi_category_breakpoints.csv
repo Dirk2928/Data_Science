@@ -1,15 +1,15 @@
 Input type,Feature,Measurement window,Unit,Clean (AQI ≤100),Light-to-moderate (AQI 101–200),Heavily polluted (AQI >200)
 Pollutant,PM2.5,24-hour mean,µg/m³,≤ 60,> 60 to ≤ 150,> 150
-Pollutant,PM10,24-hour mean,µg/m³,≤ 120,> 120 to ≤ 350,> 350
-Pollutant,SO2,24-hour mean,µg/m³,≤ 150,> 150 to ≤ 800,> 800
-Pollutant,NO2,24-hour mean,µg/m³,≤ 80,> 80 to ≤ 280,> 280
-Pollutant,CO,24-hour mean,mg/m³,≤ 4,> 4 to ≤ 24,> 24
-Pollutant,O3,maximum 8-hour mean,µg/m³,≤ 160,> 160 to ≤ 265,> 265
-Weather,TEMP_mean,daily mean,°C,No AQI cutoff,No AQI cutoff,No AQI cutoff
-Weather,TEMP_range,daily range,°C,No AQI cutoff,No AQI cutoff,No AQI cutoff
-Weather,PRES_mean,daily mean,hPa,No AQI cutoff,No AQI cutoff,No AQI cutoff
-Weather,DEWP_mean,daily mean,°C,No AQI cutoff,No AQI cutoff,No AQI cutoff
-Weather,RAIN_sum,daily total,mm,No AQI cutoff,No AQI cutoff,No AQI cutoff
-Weather,WSPM_mean,daily mean,m/s,No AQI cutoff,No AQI cutoff,No AQI cutoff
-Weather,wd_sin,daily circular mean,unitless,No AQI cutoff,No AQI cutoff,No AQI cutoff
-Weather,wd_cos,daily circular mean,unitless,No AQI cutoff,No AQI cutoff,No AQI cutoff
+Pollutant,PM10,24-hour mean,µg/m³,≤ 120,> 120 to ≤ 350,> 350,HJ 633 pollutant breakpoin
+Pollutant,SO2,24-hour mean,µg/m³,≤ 150,> 150 to ≤ 800,> 800,HJ 633 pollutant breakpoint; overall AQI uses the maximum pollutant sub-index.
+Pollutant,NO2,24-hour mean,µg/m³,≤ 80,> 80 to ≤ 280,> 280,HJ 633 pollutant breakpoint; overall AQI uses the maximum pollutant sub-index.
+Pollutant,CO,24-hour mean,mg/m³,≤ 4,> 4 to ≤ 24,> 24,HJ 633 pollutant breakpoint; overall AQI usyes the maximum pollutant sub-index.
+Pollutant,O3,maximum 8-hour mean,µg/m³,≤ 160,> 160 to ≤ 265,> 265,"HJ 633 pollutant breakpoint; overall AQI uses the maximum pollutant sub-index. If the 8-hour mean exceeds 800 µg/m³, the 1-hour maximum is used; AQI >200 then begins above 400 µg/m³."
+Weather,TEMP_mean,daily mean,°C,No AQI cutoff,No AQI cutoff,No AQI cutoff,"Weather is a model input, not a pollutant with an HJ 633 AQI breakpoint."
+Weather,TEMP_range,daily range,°C,No AQI cutoff,No AQI cutoff,No AQI cutoff,"Weather is a model input, not a pollutant with an HJ 633 AQI breakpoint."
+Weather,PRES_mean,daily mean,hPa,No AQI cutoff,No AQI cutoff,No AQI cutoff,"Weather is a model input, not a pollutant with an HJ 633 AQI breakpoint."
+Weather,DEWP_mean,daily mean,°C,No AQI cutoff,No AQI cutoff,No AQI cutoff,"Weather is a model input, not a pollutant with an HJ 633 AQI breakpoint."
+Weather,RAIN_sum,daily total,mm,No AQI cutoff,No AQI cutoff,No AQI cutoff,"Weather is a model input, not a pollutant with an HJ 633 AQI breakpoint."
+Weather,WSPM_mean,daily mean,m/s,No AQI cutoff,No AQI cutoff,No AQI cutoff,"Weather is a model input, not a pollutant with an HJ 633 AQI breakpoint."
+Weather,wd_sin,daily circular mean,unitless,No AQI cutoff,No AQI cutoff,No AQI cutoff,"Weather is a model input, not a pollutant with an HJ 633 AQI breakpoint."
+Weather,wd_cos,daily circular mean,unitless,No AQI cutoff,No AQI cutoff,No AQI cutoff,"Weather is a model input, not a pollutant with an HJ 633 AQI breakpoint."
