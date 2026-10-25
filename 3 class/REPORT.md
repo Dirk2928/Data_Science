@@ -6,7 +6,7 @@ Targets use the repository's HJ 633 AQI labels, collapsed into three operational
 
 ## Data source and features
 
-The workflow connects only to MySQL database `air_quality`, using `DB_URL` or `mysql+pymysql://root:@localhost/air_quality`. It uses `all_regions` when present, or available station tables from the 12 named PRSA stations. The selected tables are recorded in the model artifact. It normalizes `interpolated_columns` into the string format expected by `aqi_labels.py`. To prepare the MySQL tables when needed, run `air-quality-classification/notebooks/DB_Connection.ipynb` and `air-quality-classification/notebooks/temp_table.ipynb`. The workflow does not use CSV data.
+The workflow connects only to MySQL database `air_quality`, using `DB_URL` or `mysql+pymysql://root:@localhost/air_quality`. It uses `all_regions` when present, or available station tables from the 12 named PRSA stations. The selected tables are recorded in the model artifact. It normalizes `interpolated_columns` into the string format expected by `aqi_labels.py`. To prepare the MySQL tables when needed, run `air-quality-classification/notebooks/DB_Connection.ipynb` and `air-quality-classification/notebooks/etl.ipynb`. The workflow does not use CSV data.
 
 Today's features are PM2.5, PM10, SO2, NO2, CO, O3 and the eight daily weather summaries TEMP_mean, TEMP_range, PRES_mean, DEWP_mean, RAIN_sum, WSPM_mean, wd_sin and wd_cos. Tomorrow's observed AQI is the target. Tomorrow's weather is not included.
 

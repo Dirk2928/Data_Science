@@ -1,4 +1,4 @@
-"""China AQI labels and dataset splits, shared by sets.ipynb and model_development.ipynb.
+"""China AQI labels and dataset splits, shared by aqi_labeling_and_splits.ipynb and model_development.ipynb.
 
 Both notebooks used to carry their own copy of these rules, and the copies drifted.
 This module is now the single definition of the breakpoints, the validity gates, the
@@ -15,7 +15,7 @@ The rules implemented here follow China's HJ 633 standard, not WHO guideline val
 * Each pollutant IAQI is linearly interpolated between breakpoints; the day's AQI is
   the largest available pollutant IAQI.
 
-`interpolated_columns`, written by temp_table.ipynb, records which hourly cells that
+`interpolated_columns`, written by etl.ipynb, records which hourly cells that
 notebook filled by linear interpolation. Those cells are indistinguishable from
 measured readings, so by default they satisfy the validity gates exactly like measured
 ones; `build_daily_labels(..., exclude_interpolated=True)` reruns the labels from
@@ -69,7 +69,7 @@ OZONE_WINDOW_HOURS = (8, 23)
 OZONE_1H_THRESHOLD = 800
 CO_UG_TO_MG = 0.001
 
-# Every column name temp_table.ipynb can record in its `interpolated_columns` output.
+# Every column name etl.ipynb can record in its `interpolated_columns` output.
 INTERPOLATED_COLUMN_NAMES = [*POLLUTANTS, "TEMP", "PRES", "DEWP", "WSPM", "wd"]
 
 REQUIRED_COLUMNS = [*POLLUTANTS, "station", "year", "month", "day", "hour"]
@@ -131,7 +131,7 @@ def add_station_day_keys(frame):
 
 
 def parse_interpolated_flags(frame):
-    """Mark the cells that temp_table.ipynb filled by linear interpolation.
+    """Mark the cells that etl.ipynb filled by linear interpolation.
 
     `interpolated_columns` holds a comma-space separated list of column names, or the
     literal string "None". Matching is token based, so PM2.5 never matches PM10.
@@ -140,7 +140,7 @@ def parse_interpolated_flags(frame):
         raise KeyError(
             "The source table has no 'interpolated_columns' column, so interpolated "
             "readings cannot be told apart from measured ones. Rebuild all_regions "
-            "with temp_table.ipynb before building labels."
+            "with etl.ipynb before building labels."
         )
     recorded = frame["interpolated_columns"].fillna("None").astype("string")
     return pd.DataFrame(
