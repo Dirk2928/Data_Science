@@ -21,11 +21,13 @@ January 4, 2025.
 
 ## Weather data
 
-The local hourly weather data are ERA5 estimates retrieved for the project
-station locations using the [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api)
+The retained daily weather features were derived from hourly ERA5 estimates
+retrieved for the project station locations using the
+[Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api)
 with the ERA5 model selected. They cover March 1, 2013 through January 4,
 2025. These are reanalysis estimates, not direct measurements at the air
-quality monitors.
+quality monitors. The intermediate hourly CSV was removed to save space;
+the daily summaries are retained for day-level prediction.
 
 Suggested citations:
 
