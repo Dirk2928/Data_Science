@@ -1,8 +1,10 @@
 # Beijing Air Quality and Weather Data Sources
 
-The large downloaded and derived data files are kept locally in
-`CNEMC_Figshare_2014-2025/`. That folder is excluded from Git because its
-files exceed GitHub's normal repository file limits.
+The full downloaded source collection is kept locally in
+`CNEMC_Figshare_2014-2025/`. The repository tracks only the Beijing
+station-hour pollutant CSV and daily ERA5 feature CSV listed below; the other
+large source and intermediate files remain local because they exceed
+GitHub's normal repository file limits.
 
 ## Pollutant measurements
 

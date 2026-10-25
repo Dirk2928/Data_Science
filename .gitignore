@@ -1,3 +1,7 @@
-CNEMC_Figshare_2014-2025/
+CNEMC_Figshare_2014-2025/*
+!CNEMC_Figshare_2014-2025/data/
+CNEMC_Figshare_2014-2025/data/*
+!CNEMC_Figshare_2014-2025/data/beijing_project_stations_hourly.csv
+!CNEMC_Figshare_2014-2025/data/beijing_station_weather_era5_daily_features.csv
 aqi_next_day_random_forest.joblib
 aqi_next_day_weather_random_forest.joblib
