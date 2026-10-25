@@ -13,7 +13,8 @@ from sklearn.pipeline import Pipeline
 
 from weather_model_comparison import POLLUTANTS, WEATHER, build_supervised_dataset, SOURCE
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = ROOT / "data"
 GRID = {
     "classifier__n_estimators": [300, 600],
     "classifier__max_depth": [None, 16],
@@ -77,7 +78,7 @@ def tune_both(data: pd.DataFrame, *, verbose: bool = True):
 def main() -> None:
     data = build_supervised_dataset(pd.read_csv(SOURCE))
     results, _, train, test = tune_both(data)
-    out = ROOT / "weather_model_tuning_results.csv"
+    out = DATA_DIR / "weather_model_tuning_results.csv"
     results.to_csv(out, index=False)
     print(f"Saved all candidate CV scores to {out}")
     print(f"Chronological training rows: {len(train):,}; held-out rows reserved for step 7: {len(test):,}")

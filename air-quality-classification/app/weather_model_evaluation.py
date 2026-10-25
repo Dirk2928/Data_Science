@@ -16,9 +16,9 @@ from weather_model_comparison import POLLUTANTS, WEATHER, SOURCE, build_supervis
 from weather_model_tuning import chronological_training_data
 from aqi_labels import AQI_CATEGORIES
 
-ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT / "Notebooks"))
-TUNING_RESULTS = ROOT / "weather_model_tuning_results.csv"
+ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = ROOT / "data"
+TUNING_RESULTS = DATA_DIR / "weather_model_tuning_results.csv"
 LABELS = list(AQI_CATEGORIES.values())
 
 
@@ -71,9 +71,9 @@ def main() -> None:
         print(feature_set, params, summary[-1])
 
     summary_df = pd.DataFrame(summary)
-    summary_df.to_csv(ROOT / "weather_model_holdout_metrics.csv", index=False)
-    pd.DataFrame(class_rows).to_csv(ROOT / "weather_model_holdout_class_report.csv", index=False)
-    pd.DataFrame(confusion_rows).to_csv(ROOT / "weather_model_holdout_confusion.csv", index=False)
+    summary_df.to_csv(DATA_DIR / "weather_model_holdout_metrics.csv", index=False)
+    pd.DataFrame(class_rows).to_csv(DATA_DIR / "weather_model_holdout_class_report.csv", index=False)
+    pd.DataFrame(confusion_rows).to_csv(DATA_DIR / "weather_model_holdout_confusion.csv", index=False)
     print("Saved holdout summary, category report, and confusion matrices.")
 
 

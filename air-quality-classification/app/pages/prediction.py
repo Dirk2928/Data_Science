@@ -8,8 +8,8 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-APP_DIR=Path(__file__).resolve().parents[1]
-MODEL_PATH=Path(os.environ.get("AQI_MODEL_PATH",APP_DIR/"aqi_next_day_weather_random_forest.joblib"))
+APP_DIR=Path(__file__).resolve().parents[2]
+MODEL_PATH=Path(os.environ.get("AQI_MODEL_PATH",APP_DIR/"data"/"aqi_next_day_weather_random_forest.joblib"))
 POLLUTANT_FEATURES=["PM2.5","PM10","SO2","NO2","CO","O3"]
 WEATHER_FEATURES=["TEMP_mean","TEMP_range","PRES_mean","DEWP_mean","RAIN_sum","WSPM_mean","wd_sin","wd_cos"]
 FEATURES=POLLUTANT_FEATURES+WEATHER_FEATURES

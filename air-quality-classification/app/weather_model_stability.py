@@ -11,14 +11,14 @@ from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.pipeline import Pipeline
 
-ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT / "Notebooks"))
+ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = ROOT / "data"
 from aqi_labels import AQI_CATEGORIES  # noqa: E402
 from weather_model_comparison import POLLUTANTS, WEATHER, SOURCE, build_supervised_dataset  # noqa: E402
 from weather_model_tuning import chronological_training_data  # noqa: E402
 
 LABELS = list(AQI_CATEGORIES.values())
-TUNING = ROOT / "weather_model_tuning_results.csv"
+TUNING = DATA_DIR / "weather_model_tuning_results.csv"
 
 
 def score_groups(data, predictions, group_col, group_name):
@@ -76,9 +76,9 @@ def main():
                             score_groups(holdout, prediction, "season", "season"))
         print(name, "parameters", params)
 
-    pd.DataFrame(temporal).to_csv(ROOT / "weather_model_stability_periods.csv", index=False)
-    pd.DataFrame(station_rows).to_csv(ROOT / "weather_model_stability_stations.csv", index=False)
-    pd.DataFrame(season_rows).to_csv(ROOT / "weather_model_stability_seasons.csv", index=False)
+    pd.DataFrame(temporal).to_csv(DATA_DIR / "weather_model_stability_periods.csv", index=False)
+    pd.DataFrame(station_rows).to_csv(DATA_DIR / "weather_model_stability_stations.csv", index=False)
+    pd.DataFrame(season_rows).to_csv(DATA_DIR / "weather_model_stability_seasons.csv", index=False)
     print(f"Holdout split at {split_date.date()}; wrote period, station, and season summaries.")
 
 

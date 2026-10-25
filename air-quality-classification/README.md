@@ -13,23 +13,23 @@ the app.
 
 | Path | Description |
 | --- | --- |
-| [`PRSA_Data_20130301-20170228/`](PRSA_Data_20130301-20170228/) | Beijing hourly air-quality CSVs, including station data and combined datasets |
-| [`Notebooks/DB_Connection.ipynb`](Notebooks/DB_Connection.ipynb) | Connects to MySQL, previews a station dataset, and loads station CSVs into tables |
-| [`Notebooks/temp_table.ipynb`](Notebooks/temp_table.ipynb) | Combines and prepares station data in the `all_regions` MySQL table |
-| [`Notebooks/clean_readings.ipynb`](Notebooks/clean_readings.ipynb) | Validates and cleans the provided `cleaned_dataset.csv` into `cleaned_dataset_validated.csv` |
-| [`Notebooks/aqi_labels.py`](Notebooks/aqi_labels.py) | Shared AQI labeling and dataset-splitting logic for modeling notebooks |
-| [`Notebooks/eda_beijing_air_quality.ipynb`](Notebooks/eda_beijing_air_quality.ipynb) | Exploratory data analysis and visualizations |
-| [`Notebooks/stats_analysis_beijing_air_quality.ipynb`](Notebooks/stats_analysis_beijing_air_quality.ipynb) | Descriptive statistics and station-level statistical analyses |
-| [`Notebooks/sets.ipynb`](Notebooks/sets.ipynb) | Calculates daily China AQI labels and data splits |
-| [`Notebooks/model_development.ipynb`](Notebooks/model_development.ipynb), [`Notebooks/model_development_revised.ipynb`](Notebooks/model_development_revised.ipynb) | Earlier/alternative model experiments |
-| [`model_development_final.ipynb`](model_development_final.ipynb) | Pollutant-only baseline training, evaluation, and artifact export |
+| [`data/`](data/) | Beijing hourly air-quality CSVs, including station data and combined datasets |
+| [`notebooks/DB_Connection.ipynb`](notebooks/DB_Connection.ipynb) | Connects to MySQL, previews a station dataset, and loads station CSVs into tables |
+| [`notebooks/temp_table.ipynb`](notebooks/temp_table.ipynb) | Combines and prepares station data in the `all_regions` MySQL table |
+| [`notebooks/clean_readings.ipynb`](notebooks/clean_readings.ipynb) | Validates and cleans the provided `cleaned_dataset.csv` into `cleaned_dataset_validated.csv` |
+| [`app/aqi_labels.py`](app/aqi_labels.py) | Shared AQI labeling and dataset-splitting logic for modeling notebooks |
+| [`notebooks/eda_beijing_air_quality.ipynb`](notebooks/eda_beijing_air_quality.ipynb) | Exploratory data analysis and visualizations |
+| [`notebooks/stats_analysis_beijing_air_quality.ipynb`](notebooks/stats_analysis_beijing_air_quality.ipynb) | Descriptive statistics and station-level statistical analyses |
+| [`notebooks/sets.ipynb`](notebooks/sets.ipynb) | Calculates daily China AQI labels and data splits |
+| [`notebooks/model_development.ipynb`](notebooks/model_development.ipynb), [`notebooks/model_development_revised.ipynb`](notebooks/model_development_revised.ipynb) | Earlier/alternative model experiments |
+| [`notebooks/model_development_final.ipynb`](notebooks/model_development_final.ipynb) | Pollutant-only baseline training, evaluation, and artifact export |
 | [`weather_model_comparison.md`](weather_model_comparison.md) | Weather feature ablation, held-out evaluation, and stability findings |
-| [`weather_feature_walkthrough.ipynb`](weather_feature_walkthrough.ipynb) | Interactive weather feature construction, model comparison, and evaluation |
-| [`weather_model_tuning.py`](weather_model_tuning.py), [`weather_model_evaluation.py`](weather_model_evaluation.py), [`weather_model_stability.py`](weather_model_stability.py) | Reproducible tuning, holdout evaluation, and stability analysis |
-| [`train_weather_model_release.py`](train_weather_model_release.py) | Trains and exports the weather-enabled app artifact |
-| [`app.py`](app.py) | Streamlit multipage entry point and navigation |
-| [`pages/prediction.py`](pages/prediction.py) | AQI prediction interface |
-| [`pages/1_Model_Dataset.py`](pages/1_Model_Dataset.py) | Paginated view of the model's daily training/evaluation examples |
+| [`notebooks/weather_feature_walkthrough.ipynb`](notebooks/weather_feature_walkthrough.ipynb) | Interactive weather feature construction, model comparison, and evaluation |
+| [`app/weather_model_tuning.py`](app/weather_model_tuning.py), [`app/weather_model_evaluation.py`](app/weather_model_evaluation.py), [`app/weather_model_stability.py`](app/weather_model_stability.py) | Reproducible tuning, holdout evaluation, and stability analysis |
+| [`app/train_weather_model_release.py`](app/train_weather_model_release.py) | Trains and exports the weather-enabled app artifact |
+| [`app/app.py`](app/app.py) | Streamlit multipage entry point and navigation |
+| [`app/pages/prediction.py`](app/pages/prediction.py) | AQI prediction interface |
+| [`app/pages/1_Model_Dataset.py`](app/pages/1_Model_Dataset.py) | Paginated view of the model's daily training/evaluation examples |
 | [`requirements-app.txt`](requirements-app.txt) | Python dependencies for running the app |
 | [`README_app.md`](README_app.md) | Additional app usage details |
 
@@ -39,13 +39,13 @@ From the repository root, install the app dependencies and launch Streamlit:
 
 ```bash
 python -m pip install -r requirements-app.txt
-python -m streamlit run app.py
+python -m streamlit run app/app.py
 ```
 
 Open the local URL printed by Streamlit, usually <http://localhost:8501>.
 
-The app loads `aqi_next_day_weather_random_forest.joblib` from the repository root
-by default. The generated model artifact is not included in the repository. To
+The app loads `data/aqi_next_day_weather_random_forest.joblib` by default. The
+generated model artifact is not included in the repository. To
 create it, run the weather model tuning and release steps below. You can point
 the app to a compatible artifact with `AQI_MODEL_PATH`.
 
@@ -55,15 +55,15 @@ The app's weather-enabled model uses the bundled cleaned hourly dataset and does
 not require MySQL. From the repository root, run:
 
 ```bash
-python weather_model_tuning.py
-python train_weather_model_release.py
+python app/weather_model_tuning.py
+python app/train_weather_model_release.py
 ```
 
-The tuning script writes `weather_model_tuning_results.csv`. The release script
+The tuning script writes `data/weather_model_tuning_results.csv`. The release script
 uses those selected parameters to train the category, numeric AQI, and main
 pollutant models, then writes the ignored model artifact and
-`aqi_weather_model_dataset.csv` used by the dataset browser. The older
-`model_development_final.ipynb` remains the pollutant-only baseline workflow.
+`data/aqi_weather_model_dataset.csv` used by the dataset browser. The older
+`notebooks/model_development_final.ipynb` remains the pollutant-only baseline workflow.
 
 The dataset page displays 50 rows per page. To use a different CSV, set
 `AQI_DATASET_PATH` before starting Streamlit.
@@ -96,7 +96,7 @@ experimental and should not be used as health or operational guidance.
 
 ## Further analysis
 
-Run the relevant notebooks in `Notebooks/` in Jupyter to explore the dataset.
+Run the relevant notebooks in `notebooks/` in Jupyter to explore the dataset.
 The EDA, statistics, and alternate-model notebooks are independent analyses;
 they are not required to launch the Streamlit app if a compatible model
 artifact is already available.

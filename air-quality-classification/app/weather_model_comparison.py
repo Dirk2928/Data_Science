@@ -17,11 +17,11 @@ from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.pipeline import Pipeline
 
-ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT / "Notebooks"))
+ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = ROOT / "data"
 from aqi_labels import build_daily_labels  # noqa: E402
 
-SOURCE = ROOT / "PRSA_Data_20130301-20170228" / "cleaned_dataset.csv"
+SOURCE = DATA_DIR / "PRSA_cleaned_dataset.csv"
 POLLUTANTS = ["PM2.5", "PM10", "SO2", "NO2", "CO", "O3"]
 WEATHER = ["TEMP_mean", "TEMP_range", "PRES_mean", "DEWP_mean", "RAIN_sum", "WSPM_mean", "wd_sin", "wd_cos"]
 PARAMS = dict(n_estimators=300, max_depth=16, min_samples_leaf=3,
@@ -106,7 +106,7 @@ def main() -> None:
     data = build_supervised_dataset(hourly)
     output_columns = ["date", "station", *POLLUTANTS, *WEATHER,
                       "target_category", "target_AQI", "target_main_pollutant"]
-    dataset_path = ROOT / "weather_augmented_model_dataset.csv"
+    dataset_path = DATA_DIR / "weather_augmented_model_dataset.csv"
     data[output_columns].to_csv(dataset_path, index=False)
     print(f"Saved joined supervised examples: {dataset_path} ({len(data):,} rows)")
     dates = np.array(sorted(data["date"].unique()))
@@ -131,7 +131,7 @@ def main() -> None:
         results.append(row)
         print(json.dumps(row))
     out = pd.DataFrame(results)
-    out.to_csv(ROOT / "weather_model_comparison_results.csv", index=False)
+    out.to_csv(DATA_DIR / "weather_model_comparison_results.csv", index=False)
     print("SUMMARY", json.dumps({
         "weather_accuracy_wins": int((out.accuracy_delta > 0).sum()),
         "weather_macro_f1_wins": int((out.macro_f1_delta > 0).sum()),

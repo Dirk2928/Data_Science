@@ -12,9 +12,9 @@ From the project root, install the app dependencies and launch Streamlit:
 
 ```powershell
 python -m pip install -r requirements-app.txt
-python -m streamlit run app.py
+python -m streamlit run app/app.py
 ```
 
-The app loads `aqi_next_day_weather_random_forest.joblib` by default. To build it, run `python weather_model_tuning.py` and then `python train_weather_model_release.py`. To use another compatible artifact, set `AQI_MODEL_PATH` before starting Streamlit.
+The app loads `aqi_next_day_weather_random_forest.joblib` by default. To build it, run `python app/weather_model_tuning.py` and then `python app/train_weather_model_release.py`. To use another compatible artifact, set `AQI_MODEL_PATH` before starting Streamlit.
 
-The dataset page shows 50 rows per page from `aqi_weather_model_dataset.csv`, which the release script creates. Set `AQI_DATASET_PATH` before starting the app to use a different CSV.
+The dataset page shows 50 rows per page from `data/aqi_weather_model_dataset.csv`, which the release script creates. Set `AQI_DATASET_PATH` before starting the app to use a different CSV.

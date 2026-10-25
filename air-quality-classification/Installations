@@ -3,7 +3,6 @@ pip install SQLAlchemy
 pip install pymysql
 
 
-
 Dbeaver connection
 
 ## PART 1: Create a New MySQL Connection

@@ -14,16 +14,16 @@ from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score, mean_absolute_error
 from sklearn.pipeline import Pipeline
 
-ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT / "Notebooks"))
+ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = ROOT / "data"
 from aqi_labels import AQI_CATEGORIES  # noqa: E402
 from weather_model_comparison import POLLUTANTS, WEATHER, SOURCE, build_supervised_dataset  # noqa: E402
 from weather_model_tuning import chronological_training_data  # noqa: E402
 
 FEATURES = POLLUTANTS + WEATHER
-MODEL_PATH = ROOT / "aqi_next_day_weather_random_forest.joblib"
-DATASET_PATH = ROOT / "aqi_weather_model_dataset.csv"
-TUNING_PATH = ROOT / "weather_model_tuning_results.csv"
+MODEL_PATH = DATA_DIR / "aqi_next_day_weather_random_forest.joblib"
+DATASET_PATH = DATA_DIR / "aqi_weather_model_dataset.csv"
+TUNING_PATH = DATA_DIR / "weather_model_tuning_results.csv"
 
 
 def best_params(feature_set: str) -> dict:

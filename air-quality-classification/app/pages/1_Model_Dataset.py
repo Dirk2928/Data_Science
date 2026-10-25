@@ -7,8 +7,8 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-APP_DIR = Path(__file__).resolve().parents[1]
-DATASET_PATH = Path(os.environ.get("AQI_DATASET_PATH", APP_DIR / "aqi_weather_model_dataset.csv"))
+APP_DIR = Path(__file__).resolve().parents[2]
+DATASET_PATH = Path(os.environ.get("AQI_DATASET_PATH", APP_DIR / "data" / "aqi_weather_model_dataset.csv"))
 PAGE_SIZE = 50
 
 
