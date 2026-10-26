@@ -69,7 +69,7 @@ The app defaults to `3 class/3class_model.joblib`. Set `CLASS3_MODEL_PATH` if th
 ## Folder contents
 
 - `three_class_aqi.ipynb` — annotated training and evaluation notebook.
-- `app.py`, `pages/` — Streamlit prediction, result, and database pages.
+- `app.py` — single-file Streamlit app with prediction, results, and database views.
 - `requirements.txt` — model and app dependencies.
 - `REPORT.md` — plain-language method and interpretation guide.
 - The notebook creates the model artifact and result CSVs after successful training.
