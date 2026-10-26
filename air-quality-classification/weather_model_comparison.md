@@ -33,7 +33,7 @@ For the matched tuning step, each feature set was separately tuned on the origin
 | Pollutants only | 300 trees, max depth 16, minimum leaf 3 | 0.3111 |
 | Pollutants + weather | 600 trees, max depth 16, minimum leaf 3 | 0.3294 |
 
-The weather feature set improves the matched training CV macro F1 by 0.0183. All 16 candidate settings and their fold scores are in `weather_model_tuning_results.csv`.
+The weather feature set improves the matched training CV macro F1 by 0.0183. The detailed per-setting tuning scores are no longer retained in the repository.
 
 ## Tuned model holdout evaluation
 
@@ -81,7 +81,7 @@ The tuned models were fit once on the original training period and scored separa
 
 Weather improves both metrics in both blocks, with a much smaller gain in the later block. This is consistency within one held-out span, not independent replication across years or locations.
 
-Across the 12 stations, weather improves macro F1 at 10 stations and is slightly lower at Dingling and Wanliu; accuracy improves or ties at 11 stations. Seasonal macro F1 improves in spring, summer, and autumn; winter is slightly lower (0.316 vs 0.319). Seasonal coverage is uneven: the holdout has 252 spring station-days, compared with 1,068–1,092 in the other seasons. These subgroup results are descriptive given the limited historical period. Detailed breakdowns are saved in `weather_model_stability_stations.csv` and `weather_model_stability_seasons.csv`.
+Across the 12 stations, weather improves macro F1 at 10 stations and is slightly lower at Dingling and Wanliu; accuracy improves or ties at 11 stations. Seasonal macro F1 improves in spring, summer, and autumn; winter is slightly lower (0.316 vs 0.319). Seasonal coverage is uneven: the holdout has 252 spring station-days, compared with 1,068–1,092 in the other seasons. These subgroup results are descriptive given the limited historical period. The detailed station and season breakdown files are no longer retained in the repository.
 
 ## Interpretation
 

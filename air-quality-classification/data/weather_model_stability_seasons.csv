@@ -1,9 +1,0 @@
-feature_set,group_type,group,rows,accuracy,macro_f1
-pollutant_only,season,Autumn,1070,0.3411214953271028,0.30959361343446046
-pollutant_only,season,Spring,252,0.373015873015873,0.2142711785363065
-pollutant_only,season,Summer,1092,0.40476190476190477,0.2656268389975249
-pollutant_only,season,Winter,1068,0.3539325842696629,0.3229255773213863
-pollutant_plus_weather,season,Autumn,1070,0.3981308411214953,0.3569440590703998
-pollutant_plus_weather,season,Spring,252,0.4642857142857143,0.242931347207876
-pollutant_plus_weather,season,Summer,1092,0.445970695970696,0.28032172708770964
-pollutant_plus_weather,season,Winter,1068,0.36142322097378277,0.3324486140566556
