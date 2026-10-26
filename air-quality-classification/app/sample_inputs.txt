@@ -1,0 +1,52 @@
+Sample inputs for the Next-day 3-class AQI app
+
+Enter each sample's values in the app fields. The values follow the feature names shown below.
+Wind direction uses wd_sin=0 and wd_cos=1 for all three examples.
+
+Sample 1 — Cleaner conditions (expected: Clean)
+PM2.5: 8
+PM10: 18
+SO2: 3
+NO2: 12
+CO: 0.4
+O3: 45
+TEMP_mean: 16
+TEMP_range: 9
+PRES_mean: 1015
+DEWP_mean: 6
+RAIN_sum: 0
+WSPM_mean: 2.0
+wd_sin: 0
+wd_cos: 1
+
+Sample 2 — Moderate pollution (expected: Light-to-moderate polluted)
+PM2.5: 75
+PM10: 130
+SO2: 25
+NO2: 75
+CO: 1.6
+O3: 110
+TEMP_mean: 16
+TEMP_range: 9
+PRES_mean: 1012
+DEWP_mean: 6
+RAIN_sum: 0
+WSPM_mean: 1.5
+wd_sin: 0
+wd_cos: 1
+
+Sample 3 — Heavy pollution (expected: Heavily polluted)
+PM2.5: 260
+PM10: 320
+SO2: 90
+NO2: 160
+CO: 5.5
+O3: 210
+TEMP_mean: 16
+TEMP_range: 9
+PRES_mean: 1008
+DEWP_mean: 6
+RAIN_sum: 0
+WSPM_mean: 1.0
+wd_sin: 0
+wd_cos: 1
