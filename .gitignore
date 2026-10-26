@@ -12,3 +12,9 @@ aqi_next_day_weather_random_forest.joblib
 # Python bytecode and cache directories
 __pycache__/
 *.py[cod]
+.ipynb_checkpoints/
+
+# Generated outputs from the experimental XGBoost notebook.
+# Recreate these by rerunning the notebook instead of tracking local artifacts.
+air-quality-classification/notebooks/aqi_next_day_xgboost.joblib
+air-quality-classification/notebooks/aqi_model_dataset.csv
