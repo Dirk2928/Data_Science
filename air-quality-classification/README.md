@@ -1,6 +1,6 @@
 # Beijing Air Quality Analysis and AQI Prediction
 
-This folder contains Beijing air-quality data preparation, analysis, and model experiments. The active three-class XGBoost app is maintained in the sibling `3 class/` folder; the former weather-enabled app in this folder has been retired.
+This folder contains Beijing air-quality data preparation, analysis, and model experiments. The active three-class XGBoost app is maintained in this directory; the former weather-enabled app in this folder has been retired.
 
 ## Project contents
 
@@ -20,7 +20,7 @@ This folder contains Beijing air-quality data preparation, analysis, and model e
 
 ## Current app
 
-The active three-class app is in the sibling [`3 class` project](../3%20class/README.md). Its README explains how to prepare, run, and retrain that app.
+The active three-class app is [`app/app.py`](app/app.py), with its training notebook in [`notebooks/three_class_aqi.ipynb`](notebooks/three_class_aqi.ipynb). See [`README_3class.md`](README_3class.md) for setup and usage.
 
 ## Database preparation
 

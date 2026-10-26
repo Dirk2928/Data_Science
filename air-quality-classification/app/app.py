@@ -11,7 +11,10 @@ from sqlalchemy import create_engine, inspect, text
 
 
 APP_DIR = Path(__file__).resolve().parent
-MODEL_PATH = Path(os.environ.get("CLASS3_MODEL_PATH", APP_DIR / "3class_model.joblib"))
+PROJECT_DIR = APP_DIR.parent
+DATA_DIR = PROJECT_DIR / "data"
+MODEL_DIR = PROJECT_DIR / "models"
+MODEL_PATH = Path(os.environ.get("CLASS3_MODEL_PATH", MODEL_DIR / "3class_model.joblib"))
 FEATURES = [
     "PM2.5", "PM10", "SO2", "NO2", "CO", "O3", "TEMP_mean", "TEMP_range",
     "PRES_mean", "DEWP_mean", "RAIN_sum", "WSPM_mean", "wd_sin", "wd_cos",
@@ -41,7 +44,7 @@ def show_prediction() -> None:
         "such as (wd_sin=0, wd_cos=1) or (wd_sin=0.707, wd_cos=0.707). Do not enter 1 for both fields."
     )
     if not MODEL_PATH.exists():
-        st.error(f"Model not found: {MODEL_PATH}. Run all cells in three_class_aqi.ipynb first.")
+        st.error(f"Model not found: {MODEL_PATH}. Run all cells in notebooks/three_class_aqi.ipynb first.")
         return
     try:
         artifact = joblib.load(MODEL_PATH)
@@ -106,14 +109,14 @@ def show_results() -> None:
         ("per_class.csv", "Per-class precision, recall and F1"),
     ]:
         st.subheader(title)
-        path = APP_DIR / filename
+        path = DATA_DIR / filename
         if path.exists():
             st.dataframe(pd.read_csv(path), use_container_width=True)
         else:
-            st.info("Run all cells in three_class_aqi.ipynb to generate results.")
+            st.info("Run all cells in notebooks/three_class_aqi.ipynb to generate results.")
 
     with st.expander("Pollutant and Weather Measurements Baselines", expanded=False):
-        path = APP_DIR / "aqi_category_breakpoints.csv"
+        path = DATA_DIR / "aqi_category_breakpoints.csv"
         if path.exists():
             st.caption(
                 "Pollutant cutoffs show when that pollutant's AQI sub-index enters each class. "
@@ -125,10 +128,10 @@ def show_results() -> None:
                 hide_index=True, use_container_width=True,
             )
         else:
-            st.info("Run all cells in three_class_aqi.ipynb to generate AQI category breakpoints.")
+            st.info("Run all cells in notebooks/three_class_aqi.ipynb to generate AQI category breakpoints.")
 
     st.subheader("Confusion matrix counts")
-    path = APP_DIR / "confusion_matrix.csv"
+    path = DATA_DIR / "confusion_matrix.csv"
     if path.exists():
         data = pd.read_csv(path)
         model_name = st.selectbox("Model", data.model.unique())
@@ -138,7 +141,7 @@ def show_results() -> None:
             use_container_width=True,
         )
     else:
-        st.info("Run all cells in three_class_aqi.ipynb to generate results.")
+        st.info("Run all cells in notebooks/three_class_aqi.ipynb to generate results.")
 
 
 def show_database() -> None:
