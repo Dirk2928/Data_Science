@@ -1,8 +1,0 @@
-streamlit
-scikit-learn
-xgboost
-pandas
-numpy
-joblib
-sqlalchemy
-pymysql

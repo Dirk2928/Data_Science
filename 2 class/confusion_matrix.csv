@@ -1,5 +1,0 @@
-actual,predicted,count
-Actual Clean,Predicted Clean,6158
-Actual Polluted,Predicted Clean,1058
-Actual Clean,Predicted Polluted,946
-Actual Polluted,Predicted Polluted,1838

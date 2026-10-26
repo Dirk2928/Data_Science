@@ -1,2 +1,0 @@
-model,accuracy,accuracy_ci95_low,accuracy_ci95_high,balanced_accuracy,precision_macro,recall_macro,macro_f1,majority_baseline_accuracy,persistence_accuracy,test_rows,training_rows,train_start,train_end,test_start,test_end,best_parameters
-XGBoost,0.7996,0.778892375166315,0.82128032638824,0.7507520469364393,0.7567912620740628,0.7507520469364393,0.7536194822566685,0.7104,0.7617,10000,40266,2013-03-01,2022-08-31,2022-09-01,2025-01-03,"{""classifier__learning_rate"": 0.06, ""classifier__max_depth"": 5, ""classifier__n_estimators"": 120}"
