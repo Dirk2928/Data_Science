@@ -6,7 +6,7 @@ Does adding same-day meteorological readings improve the next-day AQI category m
 
 ## Data and feature construction
 
-The comparison uses the bundled hourly cleaned data in `PRSA_Data_20130301-20170228/cleaned_dataset.csv` and the shared AQI labeling implementation in `Notebooks/aqi_labels.py`. The target and pollutant feature rules match `model_development_final.ipynb`: today's six daily pollutant summaries predict the same station's category on the following calendar day. The supervised data contains 17,376 station-days across 1,459 dates.
+The comparison uses the bundled hourly cleaned data in `PRSA_Data_20130301-20170228/cleaned_dataset.csv` and the shared AQI labeling implementation in `app/aqi_labels.py`. The target and pollutant feature rules match `model_development_final.ipynb`: today's six daily pollutant summaries predict the same station's category on the following calendar day. The supervised data contains 17,376 station-days across 1,459 dates.
 
 The added weather features are daily mean and range of temperature, mean pressure, mean dew point, total rain, mean wind speed, and sine/cosine encodings of the circular mean wind direction. Every daily aggregate requires at least 20 nonmissing hourly readings; missing feature values are median-imputed within each training fit. No future-day observed weather is joined to the inputs.
 
@@ -83,12 +83,12 @@ Weather improves both metrics in both blocks, with a much smaller gain in the la
 
 Across the 12 stations, weather improves macro F1 at 10 stations and is slightly lower at Dingling and Wanliu; accuracy improves or ties at 11 stations. Seasonal macro F1 improves in spring, summer, and autumn; winter is slightly lower (0.316 vs 0.319). Seasonal coverage is uneven: the holdout has 252 spring station-days, compared with 1,068–1,092 in the other seasons. These subgroup results are descriptive given the limited historical period. Detailed breakdowns are saved in `weather_model_stability_stations.csv` and `weather_model_stability_seasons.csv`.
 
-## Decision and app release
+## Interpretation
 
-Add same-day weather features to the app's completed-day prediction workflow. The tuned weather model improved the held-out category metrics and improved both metrics in each of the two held-out blocks. Weather summaries are available at the app's stated cutoff, after the day's observations finish. The gain is promising rather than established for current conditions: this is historical data from one city and winter results were slightly weaker.
+In this historical comparison, the tuned weather model improved the held-out category metrics and both metrics in each of the two held-out blocks. The gain is promising rather than established for current conditions: this is historical data from one city and winter results were slightly weaker.
 
-The app now accepts the eight weather summaries, allows them to be omitted with median imputation, and uses a new weather-enabled artifact. The release script retrains the category, numeric AQI, and main-pollutant models on all eligible 2013–2017 station-days after recording the holdout metrics. On the same held-out dates, numeric AQI MAE was 42.68 and main-pollutant accuracy was 67.72%. Those two heads now use weather too; these figures are historical evaluation results, not a current forecast guarantee. The app still does not fetch weather forecasts.
+These results describe the retired weather-model experiment. They are not measurements of the current three-class XGBoost app's performance.
 
-## Reproduction
+## Archived workflow
 
-Run `python weather_model_comparison.py` from the repository root. The script writes exploratory split metrics and `weather_augmented_model_dataset.csv`. Run `python weather_model_tuning.py` for the matched search, `python weather_model_evaluation.py` for the holdout summary and category/confusion reports, and `python weather_model_stability.py` for time-block, station, and season breakdowns. `weather_feature_walkthrough.ipynb` presents data construction, matched tuning, holdout evaluation, and stability checks interactively.
+This document preserves previously generated weather-comparison findings. The scripts and walkthrough that produced them have been removed; the results remain as historical analysis and cannot be regenerated from the current codebase.

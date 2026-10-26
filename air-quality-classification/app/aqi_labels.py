@@ -1,4 +1,4 @@
-"""China AQI labels and dataset splits, shared by aqi_labeling_and_splits.ipynb and model_development.ipynb.
+"""Shared China AQI labeling rules and station-day data splits for model workflows.
 
 Both notebooks used to carry their own copy of these rules, and the copies drifted.
 This module is now the single definition of the breakpoints, the validity gates, the
