@@ -17,7 +17,7 @@ This folder contains Beijing air-quality data preparation, analysis, and model e
 | [`notebooks/comprehensive_model_evaluation.ipynb`](notebooks/comprehensive_model_evaluation.ipynb) | Compares two-, three-, and six-class model results |
 | [`notebooks/two_class_model_comparison.ipynb`](notebooks/two_class_model_comparison.ipynb), [`notebooks/three_class_model_comparison.ipynb`](notebooks/three_class_model_comparison.ipynb), [`notebooks/six_class_model_comparison.ipynb`](notebooks/six_class_model_comparison.ipynb) | Model-family comparisons for each AQI classification task |
 | [`notebooks/xgboost_6_vs_3_class_comparison.ipynb`](notebooks/xgboost_6_vs_3_class_comparison.ipynb) | Compares XGBoost six-class and three-class next-day predictions |
-| [`notebooks/xgboost_pollutants_vs_weather_only_comparison.ipynb`](notebooks/xgboost_pollutants_vs_weather_only_comparison.ipynb) | Compares pollutant-plus-weather inputs with weather-only inputs for both class schemes |
+| [`notebooks/xgboost_pollutants_only_vs_pollutants_weather_comparison.ipynb`](notebooks/xgboost_pollutants_only_vs_pollutants_weather_comparison.ipynb) | Tests whether weather improves three-class AQI prediction beyond pollutant-only inputs |
 | [`weather_model_comparison.md`](weather_model_comparison.md) | Archived findings from the former weather-feature experiment |
 
 ## Current app
