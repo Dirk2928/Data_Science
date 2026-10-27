@@ -1,18 +1,21 @@
-/* Pastel mint sidebar in light mode; its tint follows Streamlit's theme background,
-   so the same accent becomes a darker green when dark mode is active. */
+/* The sidebar uses the former hover tint as its background. The selected page
+   uses the former sidebar tint; the new hover state is more saturated. These
+   blends use Streamlit's theme background, so they darken automatically in dark mode. */
 :root {
   --aqi-sidebar-accent: #159B73;
-  --aqi-sidebar-tint: color-mix(in srgb, var(--aqi-sidebar-accent) 32%, var(--background-color, #ffffff));
+  --aqi-sidebar-old-background: color-mix(in srgb, var(--aqi-sidebar-accent) 32%, var(--background-color, #ffffff));
+  --aqi-sidebar-background: color-mix(in srgb, var(--aqi-sidebar-accent) 46%, var(--background-color, #ffffff));
+  --aqi-sidebar-hover: color-mix(in srgb, var(--aqi-sidebar-accent) 64%, var(--background-color, #ffffff));
 }
 
 [data-testid="stSidebar"],
 [data-testid="stSidebar"] > div,
 [data-testid="stSidebarContent"] {
-  background-color: var(--aqi-sidebar-tint) !important;
+  background-color: var(--aqi-sidebar-background) !important;
 }
 
 [data-testid="stSidebar"] {
-  border-right: 1px solid color-mix(in srgb, var(--aqi-sidebar-accent) 25%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--aqi-sidebar-accent) 35%, transparent);
 }
 
 [data-testid="stSidebarNav"] {
@@ -38,14 +41,14 @@
   line-height: 1.35;
 }
 
-[data-testid="stSidebarNav"] a:hover {
-  background-color: color-mix(in srgb, var(--aqi-sidebar-accent) 20%, transparent);
+[data-testid="stSidebarNav"] a:hover:not([aria-current="page"]) {
+  background-color: var(--aqi-sidebar-hover) !important;
   transform: translateX(2px);
 }
 
 [data-testid="stSidebarNav"] a[aria-current="page"] {
-  background-color: var(--aqi-sidebar-accent) !important;
-  color: #ffffff !important;
+  background-color: var(--aqi-sidebar-old-background) !important;
+  color: var(--text-color) !important;
   font-weight: 700;
 }
 
@@ -53,4 +56,3 @@
   outline: 2px solid var(--aqi-sidebar-accent);
   outline-offset: 2px;
 }
-

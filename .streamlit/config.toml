@@ -1,13 +1,13 @@
 # Streamlit loads this from the repository root when the app is launched there.
-# Matching sidebar palettes provide a fallback when custom app CSS is unavailable.
+# CSS in app/sidebar.css provides the theme-adaptive sidebar and navigation states.
 [theme.light.sidebar]
-backgroundColor = "#BFECDC"
-secondaryBackgroundColor = "#9EDBC3"
+backgroundColor = "#89CABB"
+secondaryBackgroundColor = "#BFECDC"
 textColor = "#123C33"
 primaryColor = "#159B73"
 
 [theme.dark.sidebar]
-backgroundColor = "#102A23"
-secondaryBackgroundColor = "#183C32"
+backgroundColor = "#15513F"
+secondaryBackgroundColor = "#102A23"
 textColor = "#E8F7F0"
 primaryColor = "#4ED0A2"
