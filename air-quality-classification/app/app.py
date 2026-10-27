@@ -32,20 +32,16 @@ def show_results() -> None:
         else:
             st.info("Run all cells in notebooks/three_class_aqi.ipynb to generate results.")
 
-    with st.expander("Pollutant and Weather Measurements Baselines", expanded=False):
+    with st.expander("Pollutant concentration ranges by AQI class", expanded=False):
         path = DATA_DIR / "aqi_category_breakpoints.csv"
         if path.exists():
             st.caption(
-                "Pollutant cutoffs show when that pollutant's AQI sub-index enters each class. "
-                "Overall AQI is set by the highest pollutant sub-index. Weather measurements "
-                "have no direct AQI clean/polluted cutoff."
+                "These are the pollutant concentration ranges corresponding to the three AQI classes. "
+                "The overall AQI class is determined by the highest pollutant sub-index."
             )
-            st.dataframe(
-                pd.read_csv(path).drop(columns=["Notes"], errors="ignore"),
-                hide_index=True, use_container_width=True,
-            )
+            st.dataframe(pd.read_csv(path), hide_index=True, use_container_width=True)
         else:
-            st.info("Run all cells in notebooks/three_class_aqi.ipynb to generate AQI category breakpoints.")
+            st.info("The pollutant AQI cutoff table was not found.")
 
     st.subheader("Confusion matrix counts")
     path = DATA_DIR / "confusion_matrix.csv"
