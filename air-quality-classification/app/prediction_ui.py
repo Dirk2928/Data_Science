@@ -17,6 +17,14 @@ FEATURES = [
 ]
 POLLUTANTS = FEATURES[:6]
 WEATHER = FEATURES[6:-2]
+WEATHER_LABELS = {
+    "TEMP_mean": "Average temperature",
+    "TEMP_range": "Temperature difference: highest − lowest",
+    "PRES_mean": "Average air pressure",
+    "DEWP_mean": "Average dew point",
+    "RAIN_sum": "Total rainfall",
+    "WSPM_mean": "Average wind speed",
+}
 LABELS = {0: "Clean", 1: "Light-to-moderate polluted", 2: "Heavily polluted"}
 RANGES = {0: "AQI 0–100", 1: "AQI 101–200", 2: "AQI 201+"}
 UNITS = {
@@ -125,7 +133,7 @@ def show_prediction():
             with weather_columns[index % 2]:
                 minimum = None if feature in {"TEMP_mean", "DEWP_mean"} else 0.0
                 values[feature] = st.number_input(
-                    f"{feature} ({UNITS[feature]})", min_value=minimum, value=None,
+                f"{WEATHER_LABELS[feature]} ({UNITS[feature]})", min_value=minimum, value=None,
                     step=0.1, format="%.2f", help=HELP.get(feature), key=feature,
                 )
         direction = st.selectbox(
