@@ -16,6 +16,7 @@ FEATURES = [
     "PRES_mean", "DEWP_mean", "RAIN_sum", "WSPM_mean", "wd_sin", "wd_cos",
 ]
 POLLUTANTS = FEATURES[:6]
+REQUIRED_POLLUTANTS = [feature for feature in POLLUTANTS if feature != "O3"]
 WEATHER = FEATURES[6:-2]
 WEATHER_LABELS = {
     "TEMP_mean": "Average temperature",
@@ -34,7 +35,7 @@ UNITS = {
 }
 HELP = {
     "CO": "Today's 24-hour average carbon monoxide concentration, in mg/m³.",
-    "O3": "Today's highest valid trailing 8-hour ozone average, in µg/m³.",
+    "O3": "Optional. Today's highest valid trailing 8-hour ozone average, in µg/m³. If blank, the model uses its training-data median.",
     "TEMP_mean": "Today's average air temperature.",
     "TEMP_range": "Today's highest temperature minus lowest temperature.",
     "PRES_mean": "Today's average atmospheric pressure.",
@@ -69,7 +70,7 @@ def load_example(path):
 
 def show_prediction():
     st.title("Next-day 3-class prediction")
-    st.write("Enter today's completed station-day summaries, or load an example. Weather fields are optional.")
+    st.write("Enter today's completed station-day summaries, or load an example. O3 and weather fields are optional.")
 
     if not MODEL.exists():
         st.error(f"Model not found: {MODEL}. Run all cells in three_class_aqi.ipynb first.")
@@ -117,12 +118,13 @@ def show_prediction():
     with st.form("prediction"):
         values = {}
         st.subheader("Air pollutants")
-        st.caption("Daily concentrations. CO uses mg/m³; the others use µg/m³.")
+        st.caption("Daily concentrations. CO uses mg/m³; the others use µg/m³. O3 may be left blank.")
         pollutant_columns = st.columns(2)
         for index, feature in enumerate(POLLUTANTS):
             with pollutant_columns[index % 2]:
                 values[feature] = st.number_input(
-                    f"{feature} ({UNITS[feature]})", min_value=0.0, value=None,
+                    f"{feature} ({UNITS[feature]}){' — optional' if feature == 'O3' else ''}",
+                    min_value=0.0, value=None,
                     step=0.1, format="%.2f", help=HELP.get(feature), key=feature,
                 )
 
@@ -133,7 +135,7 @@ def show_prediction():
             with weather_columns[index % 2]:
                 minimum = None if feature in {"TEMP_mean", "DEWP_mean"} else 0.0
                 values[feature] = st.number_input(
-                f"{WEATHER_LABELS[feature]} ({UNITS[feature]})", min_value=minimum, value=None,
+                    f"{WEATHER_LABELS[feature]} ({UNITS[feature]})", min_value=minimum, value=None,
                     step=0.1, format="%.2f", help=HELP.get(feature), key=feature,
                 )
         direction = st.selectbox(
@@ -144,7 +146,7 @@ def show_prediction():
         submitted = st.form_submit_button("Predict tomorrow", type="primary")
 
     if submitted:
-        missing = [feature for feature in POLLUTANTS if values[feature] is None]
+        missing = [feature for feature in REQUIRED_POLLUTANTS if values[feature] is None]
         if missing:
             st.error(f"Enter a value for: {', '.join(missing)}.")
         else:
