@@ -151,13 +151,15 @@ def show_database() -> None:
 
 
 st.set_page_config(page_title="Next-day 3-class AQI", page_icon="🌤️", layout="wide")
+st.html(APP_DIR / "sidebar.css")
 prediction_page = st.Page(
     show_prediction,
-    title="Next-day 3-class prediction",
+    title="Prediction",
+    icon="🌤️",
     default=True,
 )
-results_page = st.Page(show_results, title="Model results")
-database_page = st.Page(show_database, title="Database data")
+results_page = st.Page(show_results, title="Model results", icon="📊")
+database_page = st.Page(show_database, title="Database data", icon="🗃️")
 st.navigation(
     [prediction_page, results_page, database_page],
     position="sidebar",

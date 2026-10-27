@@ -1,0 +1,41 @@
+/* Streamlit supplies the light/dark sidebar colors from .streamlit/config.toml. */
+[data-testid="stSidebar"] {
+  border-right: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+[data-testid="stSidebarNav"] {
+  padding-top: 1.1rem;
+}
+
+[data-testid="stSidebarNav"] ul {
+  gap: 0.3rem;
+}
+
+[data-testid="stSidebarNav"] a {
+  min-height: 3rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 0.75rem;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+[data-testid="stSidebarNav"] a span,
+[data-testid="stSidebarNav"] a p {
+  font-size: 1.08rem !important;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+[data-testid="stSidebarNav"] a:hover {
+  background: color-mix(in srgb, currentColor 9%, transparent);
+  transform: translateX(2px);
+}
+
+[data-testid="stSidebarNav"] a[aria-current="page"] {
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  font-weight: 700;
+}
+
+[data-testid="stSidebarNav"] a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
