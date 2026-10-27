@@ -7,8 +7,7 @@ This folder contains Beijing air-quality data preparation, analysis, and model e
 | Path | Description |
 | --- | --- |
 | [`data/`](data/) | Beijing air-quality source data and retained analysis outputs |
-| [`notebooks/DB_Connection.ipynb`](notebooks/DB_Connection.ipynb) | Loads station CSV data into MySQL tables |
-| [`notebooks/etl_data_processor.ipynb`](notebooks/etl_data_processor.ipynb) | Combines and prepares hourly station data in `all_regions` |
+| [`notebooks/etl_data_processor.ipynb`](notebooks/etl_data_processor.ipynb) | Loads the 12 station CSVs into MySQL, cleans hourly data, and builds `all_regions` |
 | [`notebooks/hourly_to_daily_pollutant_conversion.ipynb`](notebooks/hourly_to_daily_pollutant_conversion.ipynb) | Builds the daily pollutant-and-weather data and updates `aqi_daily` |
 | [`notebooks/clean_readings.ipynb`](notebooks/clean_readings.ipynb) | Validates and cleans the provided hourly CSV |
 | [`app/aqi_labels.py`](app/aqi_labels.py) | Shared China AQI labeling and station-day split rules |
@@ -26,7 +25,7 @@ The active three-class app is [`app/app.py`](app/app.py), with its training note
 
 ## Database preparation
 
-For database-based analysis, run `DB_Connection.ipynb`, then `etl_data_processor.ipynb`. Run `hourly_to_daily_pollutant_conversion.ipynb` to prepare the 2013-2025 daily table used by the model notebooks.
+For database-based analysis, run `etl_data_processor.ipynb` to load the station tables and export `data/cleaned_dataset.csv`. Then run `hourly_to_daily_pollutant_conversion.ipynb` to prepare the 2013-2025 daily table used by the model notebooks.
 
 ## Further analysis
 

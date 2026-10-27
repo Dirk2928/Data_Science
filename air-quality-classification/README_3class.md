@@ -32,7 +32,7 @@ Set `DB_URL` in the same PowerShell window before launching Jupyter:
 $env:DB_URL = "mysql+pymysql://root:@localhost/air_quality"
 ```
 
-The notebook reads `all_regions` when available, otherwise it combines the 12 station tables. If the database tables have not been prepared yet, run `air-quality-classification/notebooks/DB_Connection.ipynb` and then `air-quality-classification/notebooks/etl.ipynb`. Those preparation notebooks rely on the original PRSA files; the three-class training notebook itself reads only MySQL. If MySQL is unreachable or empty, the model notebook stops with a setup message and does not fall back to CSV.
+The model notebook reads the daily `aqi_daily` table from MySQL. To rebuild the source data, run `air-quality-classification/notebooks/etl_data_processor.ipynb` to load and clean the 12 PRSA station CSVs, then run `air-quality-classification/notebooks/hourly_to_daily_pollutant_conversion.ipynb` to create `aqi_daily`. If MySQL is unreachable or empty, the model notebook stops with a setup message and does not fall back to CSV.
 
 ## Learn the notebook flow
 
