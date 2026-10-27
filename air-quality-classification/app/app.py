@@ -155,11 +155,10 @@ st.html(APP_DIR / "sidebar.css")
 prediction_page = st.Page(
     show_prediction,
     title="Prediction",
-    icon="🌤️",
     default=True,
 )
-results_page = st.Page(show_results, title="Model results", icon="📊")
-database_page = st.Page(show_database, title="Database data", icon="🗃️")
+results_page = st.Page(show_results, title="Model results")
+database_page = st.Page(show_database, title="Database data")
 st.navigation(
     [prediction_page, results_page, database_page],
     position="sidebar",
