@@ -3,103 +3,20 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-import joblib
-import numpy as np
 import pandas as pd
 import streamlit as st
 from sqlalchemy import create_engine, inspect, text
+
+from prediction_ui import show_prediction
 
 
 APP_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = APP_DIR.parent
 DATA_DIR = PROJECT_DIR / "data"
-MODEL_DIR = PROJECT_DIR / "models"
-MODEL_PATH = Path(os.environ.get("CLASS3_MODEL_PATH", MODEL_DIR / "3class_model.joblib"))
-FEATURES = [
-    "PM2.5", "PM10", "SO2", "NO2", "CO", "O3", "TEMP_mean", "TEMP_range",
-    "PRES_mean", "DEWP_mean", "RAIN_sum", "WSPM_mean", "wd_sin", "wd_cos",
-]
-LABELS = {0: "Clean", 1: "Light-to-moderate polluted", 2: "Heavily polluted"}
-AQI_RANGES = {0: "AQI 0–100", 1: "AQI 101–200", 2: "AQI 201+"}
-UNITS = {
-    "PM2.5": "µg/m³", "PM10": "µg/m³", "SO2": "µg/m³", "NO2": "µg/m³",
-    "CO": "mg/m³", "O3": "µg/m³", "TEMP_mean": "°C", "TEMP_range": "°C",
-    "PRES_mean": "hPa", "DEWP_mean": "°C", "RAIN_sum": "mm", "WSPM_mean": "m/s",
-    "wd_sin": "unitless (-1 to 1)", "wd_cos": "unitless (-1 to 1)",
-}
 STATIONS = [
     "aotizhongxin", "changping", "dingling", "dongsi", "guanyuan", "gucheng",
     "huairou", "nongzhanguan", "shunyi", "tiantan", "wanliu", "wanshouxigong",
 ]
-
-
-def show_prediction() -> None:
-    st.title("Next-day 3-class prediction")
-    st.write(
-        "Enter today's completed station-day summaries. Weather fields are optional "
-        "and median-imputed when blank."
-    )
-    st.info(
-        "Wind direction uses sine/cosine values. Enter a pair whose vector length is at most 1, "
-        "such as (wd_sin=0, wd_cos=1) or (wd_sin=0.707, wd_cos=0.707). Do not enter 1 for both fields."
-    )
-    if not MODEL_PATH.exists():
-        st.error(f"Model not found: {MODEL_PATH}. Run all cells in notebooks/three_class_aqi.ipynb first.")
-        return
-    try:
-        artifact = joblib.load(MODEL_PATH)
-        model = artifact["model"]
-    except Exception as error:
-        st.error(f"Could not load model: {error}")
-        return
-    if list(artifact.get("feature_order", FEATURES)) != FEATURES:
-        st.error("Model feature order does not match prediction inputs.")
-        return
-
-    with st.form("prediction"):
-        values = {}
-        left, right = st.columns(2)
-        for index, feature in enumerate(FEATURES):
-            with (left if index % 2 == 0 else right):
-                minimum = -1.0 if feature in {"wd_sin", "wd_cos"} else (
-                    None if feature in {"TEMP_mean", "DEWP_mean"} else 0.0
-                )
-                values[feature] = st.number_input(
-                    f"{feature} ({UNITS[feature]})", min_value=minimum, value=None,
-                    step=0.1, format="%.3f" if feature in {"wd_sin", "wd_cos"} else "%.2f",
-                    key=feature,
-                )
-        submitted = st.form_submit_button("Predict tomorrow", type="primary")
-
-    if not submitted:
-        return
-    errors = []
-    for feature, value in values.items():
-        if value is None and feature in FEATURES[:6]:
-            errors.append(f"Enter a value for {feature}.")
-        elif value is not None and feature in {"wd_sin", "wd_cos"} and not -1 <= value <= 1:
-            errors.append(f"{feature} must be between -1 and 1.")
-    if values["TEMP_range"] is not None and values["TEMP_range"] < 0:
-        errors.append("TEMP_range cannot be negative.")
-    if (values["wd_sin"] is not None and values["wd_cos"] is not None
-            and np.hypot(values["wd_sin"], values["wd_cos"]) > 1.01):
-        errors.append(
-            "Invalid wind direction: wd_sin and wd_cos together must have length at most 1. "
-            "For example, use (0, 1), (1, 0), or (0.707, 0.707)."
-        )
-    if errors:
-        for error in errors:
-            st.error(error)
-        return
-
-    row = pd.DataFrame([[values[feature] for feature in FEATURES]], columns=FEATURES)
-    probabilities = model.predict_proba(row)[0]
-    predicted = int(model.classes_[np.argmax(probabilities)])
-    st.subheader(f"{LABELS[predicted]} — {AQI_RANGES[predicted]}")
-    for class_id, label in LABELS.items():
-        class_index = list(model.classes_).index(class_id)
-        st.metric(f"{label} probability", f"{probabilities[class_index]:.1%}")
-    st.caption("Caution: this model is about 65% accurate on its historical holdout and is not health guidance.")
 
 
 def show_results() -> None:
@@ -233,7 +150,7 @@ def show_database() -> None:
             engine.dispose()
 
 
-st.set_page_config(page_title="Next-day 3-class AQI", page_icon="🌤️")
+st.set_page_config(page_title="Next-day 3-class AQI", page_icon="🌤️", layout="wide")
 prediction_page = st.Page(
     show_prediction,
     title="Next-day 3-class prediction",

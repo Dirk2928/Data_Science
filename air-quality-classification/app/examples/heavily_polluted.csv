@@ -1,0 +1,2 @@
+PM2.5,PM10,SO2,NO2,CO,O3,TEMP_mean,TEMP_range,PRES_mean,DEWP_mean,RAIN_sum,WSPM_mean,wind_direction,expected_class,expected_label
+446,537,9.3,154,8.25,5.75,-0.5,10.6,1021.9,-4.5,0,1.12,ESE,2,Heavily polluted

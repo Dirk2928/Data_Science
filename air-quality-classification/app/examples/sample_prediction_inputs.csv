@@ -1,0 +1,4 @@
+example,PM2.5,PM10,SO2,NO2,CO,O3,TEMP_mean,TEMP_range,PRES_mean,DEWP_mean,RAIN_sum,WSPM_mean,wd_sin,wd_cos,expected_class,expected_label
+Clean,11,14,2,15,0.42,56,-1.3,4.7,1023.3,-10,3,4.5,0.09,0.91,0,Clean
+Light-to-moderate polluted,64,83,6,43,0.95,224,29.3,10.8,1007.3,16.8,0,1.75,-0.23,-0.56,1,Light-to-moderate polluted
+Heavily polluted,446,537,9.3,154,8.25,5.75,-0.5,10.6,1021.9,-4.5,0,1.12,0.81,-0.17,2,Heavily polluted

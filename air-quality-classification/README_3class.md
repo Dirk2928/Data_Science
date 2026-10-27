@@ -1,6 +1,6 @@
 # Three-class next-day AQI model
 
-This folder contains an explanatory Jupyter notebook that trains a next-day Beijing AQI classifier from MySQL, plus a Streamlit app to use the saved model. It reuses the shared labeling and feature-building modules in `air-quality-classification/app/`; it does not read CSV data.
+This folder contains an explanatory Jupyter notebook that trains a next-day Beijing AQI classifier from MySQL, plus a Streamlit app to use the saved model. It reuses the shared labeling and feature-building modules in `air-quality-classification/app/`. A separate numeric AQI estimator is trained from the bundled Beijing daily CSV by `train_aqi_regressor.py`.
 
 ## First-time setup (Windows PowerShell)
 
@@ -53,10 +53,13 @@ After the notebook finishes successfully, stop Jupyter or open another PowerShel
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
+python "air-quality-classification/train_aqi_regressor.py"
 python -m streamlit run "air-quality-classification/app/app.py"
 ```
 
-The app defaults to `air-quality-classification/models/3class_model.joblib`. Set `CLASS3_MODEL_PATH` if the model is stored elsewhere. The database page uses `DB_URL` and shows a readable message if MySQL is unavailable.
+The app defaults to `air-quality-classification/models/3class_model.joblib` for the class and `air-quality-classification/models/aqi_regressor.joblib` for the numeric AQI estimate. Set `CLASS3_MODEL_PATH` or `AQI_REGRESSOR_PATH` if a model is stored elsewhere. The database page uses `DB_URL` and shows a readable message if MySQL is unavailable.
+
+On the prediction page, use **Load clean**, **Load moderate**, or **Load heavily polluted** to fill the form, then click **Predict tomorrow**. Downloadable CSV files are in `air-quality-classification/app/examples/`. The app converts their compass wind direction into the model's sine and cosine features. The numeric estimate had a chronological holdout mean absolute error of about 42 AQI points and can disagree with the separate class prediction.
 
 ## Common fixes
 
@@ -69,7 +72,10 @@ The app defaults to `air-quality-classification/models/3class_model.joblib`. Set
 ## Folder contents
 
 - `notebooks/three_class_aqi.ipynb` — annotated training and evaluation notebook.
-- `app/app.py` — single-file Streamlit app with prediction, results, and database views.
+- `app/app.py` — Streamlit navigation, results, and database views.
+- `app/prediction_ui.py` — prediction form, example controls, and result display.
+- `app/examples/` — three downloadable example days and a combined input reference.
+- `train_aqi_regressor.py`, `models/aqi_regressor.joblib` — numeric AQI training script and model.
 - `requirements.txt` — model and app dependencies.
 - `REPORT.md` — plain-language method and interpretation guide.
 - The notebook creates the model artifact and result CSVs after successful training.

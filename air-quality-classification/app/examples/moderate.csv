@@ -1,0 +1,2 @@
+PM2.5,PM10,SO2,NO2,CO,O3,TEMP_mean,TEMP_range,PRES_mean,DEWP_mean,RAIN_sum,WSPM_mean,wind_direction,expected_class,expected_label
+64,83,6,43,0.95,224,29.3,10.8,1007.3,16.8,0,1.75,SSW,1,Light-to-moderate polluted
